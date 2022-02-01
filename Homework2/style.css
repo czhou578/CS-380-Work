@@ -1,0 +1,60 @@
+body {
+  max-width: 50%;
+}
+
+article, section {
+  margin-top: 100px;
+}
+
+h3 {
+  margin-top: -30px;
+}
+
+dt {
+  margin-bottom: 30px;
+}
+
+dd {
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 30px;
+}
+
+#element-types > div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1200px;
+}
+
+#element-types article {
+  border: 2px solid grey;
+}
+
+#element-types > div > article {
+  flex: 0 0 150px;
+  margin-left: 10px;
+  height: 200px;
+  min-width: 250px;
+  padding: 10px;
+}
+
+#element-types > dfn {
+  height: 2em;
+}
+
+#element-types > div > article > div:nth-child(1) {
+  display: flex;
+  justify-content: space-around;
+}
+
+#element-types > div > article > div:nth-child(2) {
+  margin-top: 15px;
+  margin-left: 35px;
+}
+
+#element-types > div > article > div:nth-child(2)::before {
+  content: 'Display: ';
+}
+

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>HTML Notes</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="darkTheme.css">
+        <!-- <link rel="stylesheet" href="lightTheme.css"> -->
+    </head>
+    <body>
+        <h1>Lecture Notes - HTML</h1>
+        <article id="key-terms">
+            <h2>Key terms</h2>
+            <dl>
+                <dt>HTML</dt>
+                <dd>
+                    HyperText Markup Language - a standardized way of combining plain content 
+                    (e.g. text) with <dfn>markup</dfn>, information meant to describe the plain
+                    content's role and appearance as opposed to being displayed literally.
+                </dd>
+                <dt>Tag</dt>
+                <dd>
+                    A kind of markup used in HTML. At a minimum, a tag consists of "angle brackets"
+                    (<code>&lt;</code> and <code>&gt;</code>) surrounding an alphanumeric name.
+                    A tag tells the browser to create a corresponding HTML element whose
+                    name matches the specified type.
+                </dd>
+                <dt>Element</dt>
+                <dd>
+                    An object created by the browser to correspond to an HTML tag.
+                </dd>
+                <dt>Attribute</dt>
+                <dd>
+                    An optional property of an element.
+                </dd>
+                <dt>Node</dt>
+                <dd>
+                    An overarching term that means an element, comment, or plain text inside
+                    a HTML document.
+                </dd>
+            </dl>
+            <p>
+                For more information about these and other terms related to HTML, see
+                <a href="https://developer.mozilla.org/en-US/docs/Glossary"><cite>The MDN Glossary</cite></a>.
+                If you want <i>really</i> detailed information about how exactly HTML works, see
+                the <cite>HTML Living Standard</cite>, available
+                <a href="https://html.spec.whatwg.org/multipage/">here</a>.
+            </p>
+        </article>
+        <article>
+            <h2>Document Structure</h2>
+            <p>
+                An HTML document consists of a set of nested nodes which form a tree structure.
+                Just like in 
+                <a href="https://catalog.bellevuecollege.edu/preview_course_nopop.php?catoid=8&coid=31594">Data Structures</a>, 
+                the document contains a root element with zero or more child nodes. In a HTML
+                document tree, a node can be an element, comment, or plain text. Comments and
+                plain text can only be leaf nodes, while elements can either be leaves or
+                intermediate nodes.
+            </p>
+            <section id="examples">
+                <h3>Examples</h3>
+                <p>
+                    A sub-tree where a paragraph (<code>&lt;p&gt;</code>) element has one text node child:
+                    <pre class="language-html">
+    &lt;p&gt;
+        This is a paragraph with nothing but a single text node.
+    &lt;/p&gt;
+                    </pre>
+                </p>
+                <p>
+                    A sub-tree where an unordered list (<code>&lt;ul&gt;</code>) has two list item
+                    (<code>&lt;li&gt;</code>) children, each of which have a text node:
+                    <pre class="language-html">
+    &lt;ul&gt;
+        &lt;li&gt;a list item with a text node&lt;/li&gt;
+        &lt;li&gt;another list item with a text node&lt;/li&gt;
+    &lt;/ul&gt;
+                    </pre>
+                </p>
+                <p>
+                    A sub-tree where a paragraph has a mix of text and elements as children. In this
+                    case, the text is split into two separate nodes by the element between them.
+                    <pre class="language-html">
+    &lt;p&gt;
+        a text node &lt;i&gt;and&lt;/i&gt; a second text node
+    &lt;/p&gt;
+                    </pre>
+                </p>
+            </section>
+            <section>
+                <h3>Inclusion restrictions</h3>
+                <p>
+                    Not all kinds of elements are allowed to appear in all parts of an HTML document
+                    tree. For example:
+                    <ul>
+                        <li>The root element must be <code>&lt;html&gt;</code>.</li>
+                        <li>
+                            <code>&lt;html&gt;</code> can only have one 
+                            <code>&lt;head&gt;</code> and one
+                            <code>&lt;body&gt;</code> as children.
+                        </li>
+                        <li>
+                            Some elements can only appear in <code>&lt;head&gt;</code>, such as
+                            <code>&lt;title&gt;</code>. Others can only appear in
+                            <code>&lt;body&gt;</code>. A few, such as <code>&lt;script&gt;</code>,
+                            can appear in either.
+                        </li>
+                        <li>Some elements can only have a single text child, such as <code>&lt;title&gt;</code>.</li>
+                        <li>Some elements cannot have any children, such as <code>&lt;meta&gt;</code>.</li>
+                        <li>Some elements are allowed to have only specific types of elements as children.</li>
+                    </ul>
+                </p>
+                <p>
+                    Browsers are sometimes more flexible than the rules defined in the HTML standard. For example, the
+                    previous paragraph contains an unordered list, even though the paragrapgh element is only supposed
+                    to allow <a href="https://html.spec.whatwg.org/dev/dom.html#phrasing-content-2">phrasing content</a>
+                    (see <a href="https://html.spec.whatwg.org/dev/grouping-content.html#the-p-element">the specification</a> 
+                    for the <code>&lt;p&gt;</code> element). Just like how most people will understand if you say something
+                    close to but not "proper" English (e.g. using "me" in place of "I" or vice-versa), browsers will understand
+                    if you do something close to but not technically correct. However, be aware that some incorrect element 
+                    combinations will result in the browser interpreting your HTML in unexpected ways or ignoring those 
+                    elements entirely.
+                </p>
+                <p>Note: comments are allowed inside pretty much any other element that can have child nodes.</p>
+            </section>
+        </article>
+        <article>
+            <h2>HTML elements</h2>
+            <p>
+                A HTML element has three components - type, attributes, and children. A webpage will represent an element
+                using a tag, as described under <a href="#key-terms">Key Terms</a>. There are two patterns for writing tags -
+                either a combination of an open tag and close tag, or with a self-closing tag. The <a href="#examples">examples</a>
+                above all show open + close tags, whereas something like <code>&lt;meta charset="UTF-8"/&gt;</code> is an example
+                of a self-closing tag. The type and attributes will always appear inside an open tag or self-closing tag. Children 
+                appear between open and close tags. Self-closing tags cannot contain children. Outside of a few exceptions, you 
+                will always use open + close for elements with children and self-closing for elements without.
+            </p>
+            <section>
+                <h3>Attributes</h3>
+                <p>
+                    Attributes are like member variables or a map/dictionary that contains properties of an element. Attributes let
+                    us specify behavior and/or visual aspects of HTML elements. The links contained in this page are an example of
+                    specifying behavior - each <code>&lt;a&gt;</code> tag contains an attribute called "href" that says where the 
+                    browser should navigate to when the user clicks on the link. Other attributes might affect both function and 
+                    appearance, such as the "disabled" attribute you can add to a button.
+                </p>
+                <p>
+                    Attributes all have a name, and most match a name to a value. It's permissible to specify just a name, in which
+                    case the attribute automatically uses an empty string as its value. This is useful for some attributes where the
+                    browser does something based on the presence of the attribute alone. For example, the following behave the same,
+                    but the first one is more compact:
+                    <div><button disabled>Don't click me</button> <code class="language-html">&lt;button disabled&gt;Don't click me&lt;/button&gt;</code></div>
+                    <div><button disabled="true">Don't click me</button> <code class="language-html">&lt;button disabled="true"&gt;Don't click me&lt;/button&gt;</code></div>                    
+                </p>
+                <p>
+                    Attributes for which you want to specify a non-default value have an equals sign (=) followed by the value,
+                    optionally in quotes. While it's valid to say <code>width=80</code> or <code>align=left</code>, any value with
+                    whitespace or characters that the browser might interpret as part of the tag (", ', &lt;, etc.) won't work
+                    correctly without being enclosed in quotes. I recommend using double quotes ("") as a default, even for numbers
+                    and booleans. Browsers will still know the target data type and consistency makes it easier to errors in the event
+                    you do need quotes.
+                </p>
+            </section>
+            <section id="element-types">
+                <h3>Element types</h3>
+                <p>The following are just a few examples of the many types of elements you can include in an HTML document.</p>
+                <div>
+                    <article>
+                        <div>
+                            <dfn>span</dfn>
+                            <div>Span</div>
+                        </div>
+                        <div>inline</div>
+                        <p>Can contain any other element that goes in the document body. Adds no layout or styling whatsoever.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>div</dfn>
+                            <div>Division</div>
+                        </div>
+                        <div>block</div>
+                        <p>Can contain any other element that goes in the document body. Puts the content on its own line.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>p</dfn>
+                            <div>Paragraph</div>
+                        </div>
+                        <div>block</div>
+                        <p>Encloses a paragraph of text and phrasing content (e.g. <code>&lt;b&gt;</code>). Adds spacing above and below the text, but not in between each line.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>ul</dfn>
+                            <div>Unordered list</div>
+                        </div>
+                        <div>block</div>
+                        <p>Used to create lists with bullets (dots) for each item. Contains <code>&lt;li&gt;</code> elements.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>ol</dfn>
+                            <div>Ordered list</div>
+                        </div>
+                        <div>block</div>
+                        <p>Used to create lists with sequential numbers or letters for each item. Contains <code>&lt;li&gt;</code> elements.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>li</dfn>
+                            <div>List item</div>
+                        </div>
+                        <div>block</div>
+                        <p>Used to identify a single item in a list. Can appear in <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code></p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>code</dfn>
+                            <div>Code</div>
+                        </div>
+                        <div>inline</div>
+                        <p>Used to represent a snippet of code. Uses a monospace font.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>pre</dfn>
+                            <div>Preformatted</div>
+                        </div>
+                        <div>block</div>
+                        <p>Used to represent a snippet of code. Uses a monospace font. Preserves any whitespace such as line breaks.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>img</dfn>
+                            <div>Image</div>
+                        </div>
+                        <div>inline</div>
+                        <p>Displays an image using the image data located at the URL in the "src" attribute.</p>
+                    </article>
+                    <article>
+                        <div>
+                            <dfn>a</dfn>
+                            <div>Anchor</div>
+                        </div>
+                        <div>inline</div>
+                        <p>
+                            When clicked, tells the browser to navigate to the URL in the "src" attribute. Will turn blue
+                            if the user has not visited the destination before, purple if they have.
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </article>
+        <article>
+            <h2>Miscellaneous</h2>
+            <section>
+                <h3>Common inclusions</h3>
+                <p>
+                    There are a few elements and attributes that it is common to include for clarity to either the user or their
+                    software:
+                </p>
+                <dl>
+                    <dt><code>&lt;!DOCTYPE html&gt;</code> as the very first line of the webpage</dt>
+                    <dd>Tells the browser that it's reading HTML, as opposed to plain text, an image, etc.</dd>
+                    <dt><code>lang="en"</code> (or whatever language code is appropriate) in <code>&lt;html&gt;</code></dt>
+                    <dd>Tells screen readers what language they should read the contents of the document in.</dd>
+                    <dt><code>&lt;meta charset="UTF-8"&gt;</code> inside of <code>&lt;head&gt;</code></dt>
+                    <dd>
+                        Tells the browser that the document uses the UTF-8 character set (as opposed to ASCII or any
+                        other language-limited character set). I always recommend declaring and using UTF-8 both so you can
+                        handle multiple human languages in your website and for special symbols like math operators or emoji ⇒ 😎
+                    </dd>
+                </ul>
+            </section>
+            <section>
+                <h3>Character references</h3>
+                <p>
+                    In other languages you may be used to the idea of <dfn>escaping</dfn> control characters. For example, if you have a 
+                    Java or C++ string that contains a double quote (e.g. "\"free\" pizza"), you would need to put a backslash before
+                    the quote is part of the string, not the end of the string. The same concept applies to HTML - there are some
+                    characters like &lt; that you need to escape so that the browser knows you want to display a &lt; rather than
+                    starting a tag.
+                </p>
+                <p>
+                    The HTML way of escaping characters is to use some short name for the character between an ampersand (&amp;) and
+                    semicolon (;). If you look at the source code for this page, you'll see a lot of these scattered throughout. Even
+                    in this paragraph, I had to type <code>&amp;amp;</code> in order to make the ampersand appear.
+                </p>
+                <p>
+                    More generally, you can use this technique to refer to any character. While some characters have special names
+                    (amp, lt, gt, quot, apos), you can always refer to a character using its Unicode number. For example, 
+                    <code>&amp;#x1F642;</code> will translate to &#x1F642; based on the <code>#x</code> indicating that the
+                    following is a hexidecimal number and <code>1F642</code> being the Unicode code for slightly smiling face. Of course, if you
+                    declare your charset to be UTF-8 you can type/paste the equivalent in directly 🙂
+                </p>
+            </section>
+        </article>
+    </body>
+</html>

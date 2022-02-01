@@ -1,0 +1,49 @@
+html {
+  background-color: rgb(82, 20, 20);
+}
+
+body {
+  color: aliceblue;
+}
+
+h1, h2, h3 {
+  color: lightgreen;
+}
+
+.language-html {
+  color: lightgoldenrodyellow;
+}
+
+dt, dd, p, li, div, dfn, h1, h2, h3 {
+  font-family: Tahoma, sans-serif;
+}
+
+#key-terms > dl > dt {
+  font-weight: 700;
+}
+
+a {
+  color: lightblue;
+}
+
+article:nth-child(3) > section > p > code {
+  border: 2px solid lightsalmon;
+}
+
+article:nth-child(3) > section:nth-of-type(2) > ul {
+  list-style-type: square;
+}
+
+article:nth-child(4) > section:nth-of-type(1) > div > button{
+  border-radius: 5px;
+  background-color: lightcoral;
+  border: 2px solid lightblue;
+  box-shadow: 5px 10px white;
+}
+
+article {
+  border: 3px solid lightpink;
+  border-radius: 5px;
+  width: 1200px;
+}
+
