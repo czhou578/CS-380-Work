@@ -52,5 +52,21 @@ variable declaration with const: like let, but can't reassign the variable
   x # tries to get value of x rather than declaring x
 */
 
-let a; // sets a = undefined and lets us change its value later
-const b; // sets b = undefined for the lifetime of the variable
+// let a; // sets a = undefined and lets us change its value later
+// const b; // sets b = undefined for the lifetime of the variable
+
+// let test = document.getElementById('these').querySelectorAll('input')
+// test.forEach((value) => value.value = "")
+
+// console.log(test);
+
+// const a = [4, 4, 5, 5]
+// const b = a.map((c, d) => c * d)
+// let x = 0
+// b.forEach(e => x += e)
+// console.log(x);
+
+let a;
+a = 2;
+a = { score: 2 };
+console.log(a);
