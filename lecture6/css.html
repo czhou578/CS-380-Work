@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/style.css" />
+        <title>CSS Lecture Notes</title>
+        <style>
+body {
+    background-color: #A7A9AC;
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+}
+
+nav {
+    background-color: #003D79;
+    height: 48px;
+    position: sticky;
+    top: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+nav > ul {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+}
+
+nav > ul > li {
+    display: inline-block;
+    padding: 8px 12px;
+}
+
+nav > ul > li:not(:first-child) {
+    border-left: 1px solid white;
+}
+
+nav a {
+    color: white;
+}
+
+nav a:hover {
+    color: #FFD;
+}
+
+nav > ul > li {
+    position: relative;
+}
+
+nav > ul > li > ul {
+    position: absolute;
+    top: 100%;
+    left: 4px;
+    width: calc(100% - 8px);
+    background-color: #00AEEF; 
+    border: 1px solid #888;
+    display: none;
+}
+
+nav > ul > li:hover > ul {
+    display: block;
+}
+
+nav > ul > li > ul > li {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-block: 4px;
+    border-bottom: 1px solid white;
+}
+
+main {
+    background-color: white;
+    max-width: 1280px;
+    margin: auto;
+    padding-bottom: 64px;
+}
+
+pre.lang-css, code.lang-css {
+    color: #026;
+}
+
+dt {
+    font-weight: bold;
+    font-size: 125%;
+}
+
+dd {
+    margin: 4px 0 12px 1em;
+}
+
+dt::after {
+    content: ': ';
+}
+
+pre, code {
+    font-family: 'Lucida Console', monospace;
+}
+
+.spelling-error {
+    text-decoration: red wavy underline;
+}
+
+#rainbow {
+    font-weight: black;
+    background: linear-gradient(red, orange, yellow, green, blue, indigo, transparent 77%);
+}
+
+figure {
+    margin-inline: 1em;
+    padding: 12px;
+    border: 2px dashed rgba(20, 20, 20, .4);
+    border-radius: 4px;
+}
+
+.border-radius-example {
+    width: 128px;
+    height: 96px;
+    color: white;
+    background: linear-gradient(#222, #888);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.box-sizing-example {
+    width: 400px;
+}
+
+.box-sizing-example > div {
+    display: inline-block;
+    border: 1px solid black;
+    width: 25%;
+    padding: 2px;
+}
+
+.border-box-example > div {
+    box-sizing: border-box;
+}            
+        </style>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#syntax">Syntax</a></li>
+                <li>
+                    <a href="#properties">Properties</a>
+                    <ul>
+                        <li>
+                            <a href="#properties-colors">Colors</a>
+                        </li>
+                        <li>
+                            <a href="#properties-text">Text</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#selectors">Selectors</a></li>
+                <li><a href="#sizes">Sizes</a></li>
+                <li><a href="#box-model">Box Model</a></li>
+                <li><a href="#layout">Layout</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h1>CSS Lecture Notes</h1> 
+            <article id="overview">
+                <h2>CSS Overview</h2>
+                <p>
+                    CSS stands for Cascading Style Sheets. It was invented as a compliment to HTML
+                    so that authors could customize the appearance of their webpages and make that
+                    appearance consistent across different browsers.
+                </p>
+                <p>
+                    CSS is a <em>declarative</em> language, meaning that instead of telling the 
+                    browser exactly what to do (which we do in imperative languages like JavaScript)
+                    we give it rules to follow and it figures out the outcome.
+                </p>
+            </article>
+            <article id="syntax">
+                <h2>CSS Syntax</h2>
+                <p>
+                    CSS generally takes the following form:
+                    <pre class="lang-css">
+selector {
+    property: value;
+}
+                    </pre>
+                    <dl>
+                        <dt>selector</dt>
+                        <dd>Tells the browser which elements we want to change the style of.</dd>
+                        <dt>property</dt>
+                        <dd>
+                            Tells the browser what quality of that element we want to change, such as
+                            text color, background color, how much space to put around the element, etc.
+                        </dd>
+                        <dt>value</dt>
+                        <dd>
+                            Tells the browser what we want to set the property to, such as a specific
+                            color, a certain amount of space, a certain font style, etc.
+                        </dd>
+                    </dl>
+                    You can combine multiple <code>property: value;</code> rules in one set of braces 
+                    ({}) and they will all apply to the elements targeted by the selector.
+                </p>
+            </article>
+            <article id="properties">
+                <h2>Common Properties</h2>
+                <p>
+                    There are a huge number of CSS properties, many of which have niche uses
+                    or specific elements to which they apply. For a comprehensive list, see the
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#index" rel="noopener noreferrer">MDN reference</a>.
+                    Below are a list of common or particularly useful properties you should know.
+                </p>
+                <article id="properties-colors">
+                    <h3>Colors</h3>
+                    <p>
+                        There are multiple ways to specify values for color properties. It's
+                        common to see #RGB or #RRGGBB values specified on websites that list
+                        color values, but some of the alternatives may make sense for
+                        specific use cases.
+                    </p>
+                    <article>
+                        <h4>Property formats</h4>
+                        <ol>
+                            <li>
+                                Six hexidecimal digits, such as <code>#003D79</code> (the 
+                                nav bar background color). Each pair of digits represents
+                                how much red, green, and blue to include, respectively. 
+                            </li>
+                            <li>
+                                Three hexidecimal digits, such as <code>#0F0</code> (pure
+                                green). This is easy-to-use shorthand for six digits;
+                                <code>#FAB</code> becomes <code>#FFAABB</code>.
+                            </li>
+                            <li>
+                                A color name, such as <code>black</code>. Browsers have a wide
+                                but limited number of color names, so make sure you use a name
+                                that they all recognize.
+                            </li>
+                            <li>
+                                The <code>rgb()</code> function. This takes three arguments that
+                                represent red, green, and blue as integers between 0 and 255.
+                                Works like six digit hexidecimal format.
+                            </li>
+                            <li>
+                                The <code>rgba()</code> function. This works just like 
+                                <code>rgb()</code> except that it takes a fourth argument, called
+                                the <em>alpha</em> value. Alpha can be a decimal value between 0
+                                and 1.0. It represents how transparent the color should be, i.e.
+                                how much it blends with the color behind it.
+                            </li>
+                        </ol>
+                    </article>
+                    <article>
+                        <h4>Uses</h4>
+                        <ul>
+                            <li><code>background</code>/<code>background-color</code></li>
+                            <li><code>color</code> (used for text)</li>
+                            <li><code>border</code>/<code>border-color</code></li>
+                        </ul>
+                        <p>
+                            Additionally, you can use a color as an input to one of the
+                            gradient functions, such as <code>linear-gradient()</code>.
+                            The gradient functions can be used in some places where basic
+                            colors can, such as <code>background</code> to blend multiple
+                            colors together, as seen in this example:
+                        </p>
+                        <figure>
+                            <figcaption>
+                                Code for a color gradient. The code block itself uses the
+                                CSS rule to give itself a rainbow-colored background.
+                            </figcaption>
+                            <pre id="rainbow">
+    background: linear-gradient(
+        red,
+        orange,
+        yellow,
+        green,
+        blue,
+        indigo,
+        transparent 77%
+    );
+                            </pre>
+                        </figure>
+                    </article>
+                </article>     
+                <article id="properties-text">
+                    <h3>Text</h3>
+                    <dl>
+                        <dt>font-size</dt>
+                        <dd>
+                            Used to set how large the text is.
+                        </dd>
+                        <dt>font-weight</dt>
+                        <dd>
+                            Can be used to set how thick the letters in the text are.
+                            Often used to make bold text, but some fonts have a range
+                            of thicknesses, represented in multiples of 100 from 100
+                            to 800 (normal typically being 400).
+                        </dd>
+                        <dt>text-decoration</dt>
+                        <dd>
+                            Allows you to add lines above or below text. Can be used
+                            for simple underlines or something fancy like 
+                            <span class="spelling-error">spelling errors</span>.
+                        </dd>
+                        <dt>font-style</dt>
+                        <dd>
+                            Allows you to make text italic.
+                        </dd>
+                        <dt>text-align</dt>
+                        <dd>
+                            For block elements, defines how to place the text within
+                            the block. You can use <code>left</code>, <code>right</code>,
+                            or <code>center</code> to place spare space on each line to
+                            the right, the left, or evenly on both sides, respectively.
+                            Note: if you might end up handling languages that read from
+                            right to left, you may want to consider the difference between
+                            values such as <code>left</code> which forces left alignment vs.
+                            values such as <code>start</code> which forces alignment to
+                            the natural starting place for reading.
+                        </dd>
+                    </dl>
+                </article>           
+            </article>
+            <article id="selectors">
+                <h2>Selectors</h2>
+                <p>
+                    Selectors are how you define which elements should receive a set of
+                    style rules.
+                </p>
+                <article>
+                    <h3>Selector Types</h3>
+                    <p>
+                        There are a few different types of CSS selectors:
+                    </p>
+                    <dl>
+                        <dt>Type</dt>
+                        <dd>
+                            Type selectors use the name of a HTML tag to apply a style
+                            to all tags with that name. For example,
+                            <code class="lang-css">h1 { color: 'darkgray'; }</code> will
+                            apply the color to all <code>&lt;h1&gt;</code> elements.
+                        </dd>
+                        <dt>Class</dt>
+                        <dd>
+                            You can add the "class" attribute to any HTML element as another
+                            way to select elements with CSS. In your CSS, you add a dot/period
+                            before the name of the class. Example: if you have an element
+                            <code>&lt;div class="important"&gt;</code> and some CSS
+                            <code class="lang-css">.important { font-weight: bold; }</code>
+                            then the div will have bold text.
+                        </dd>
+                        <dt>Id</dt>
+                        <dd>
+                            Id selectors work just like classes, except that you are only
+                            supposed to have one element in your entire page with a given id,
+                            whereas you can apply a class to as many elements as you like.
+                            In CSS, an id selector uses the hash/pound symbol (#) instead of
+                            a dot/period.
+                        </dd>
+                        <dt>Pseudo-element</dt>
+                        <dd>
+                            The browser allows you to create some elements purely out of CSS.
+                            These are called <dfn>pseudo-elements</dfn>. For example, if you
+                            want to add some extra styling or content before or after an
+                            exisitng element, you can use 
+                            <code class="lang-css">:before</code> or 
+                            <code class="lang-css">:after</code>. These aren't particularly
+                            common, but you can use them to add extra characters, symbols,
+                            or images before or after elements you defined in your HTML.
+                        </dd>
+                        <dt>Pseudo-class</dt>
+                        <dd>
+                            While you have to apply classes directly to elements using the
+                            "class" HTML attribute, there are some classes that the browser
+                            automatically applies to some elements. These are called
+                            <dfn>pseudo-classes</dfn>. Examples include 
+                            <code class="lang-css">:hover</code> for when the user's cursor
+                            is over the element or <code class="lang-css">:nth-child()</code>
+                            to select a specific element or subset of elements within the
+                            same parent element. Pseudo-classes always begin with a colon (:).
+                        </dd>
+                        <dt>Attribute</dt>
+                        <dd>
+                            You can also select elements by specifying that they must have an
+                            attribute with a specific value. For example,
+                            <code class="lang-css">input[type="text"]</code> will only apply to
+                            input elements with a HTML attribute of "type" that's equal to "text"
+                            (<code>&lt;input type="text"&gt;</code> but not 
+                            <code>&lt;input type="checkbox"></code> or <code>&lt;input&gt;</code>).
+                            There are several variations that let you specify a prefix, suffix,
+                            regular expression, or other attributes. Attribute selectors are
+                            surrounded by square brackets ([]).
+                        </dd>
+                    </dl>
+                </article>
+                <article>
+                    <h3>Combining Selectors</h3>
+                    <p>
+                        You can use mutliple selectors together to make more specific selectors.
+                        You can combine multiple of the same type or mix different types.
+                        Here are the different ways in which you can combine them:
+                    </p>
+                    <dl>
+                        <dt>Adjacent</dt>
+                        <dd>
+                            Putting two selectors together with nothing between them will
+                            act like a logic AND. For example, 
+                            <code class="lang-css">div.important</code> will only apply to
+                            elements with a type of div <em>and</em> a class of "important".
+                            You can can combine multiples of any selector type this way
+                            except for type (an element cannot have more than one type).
+                            Example:
+                            <code class="lang-css">a#foo.bar.baz:visited[href^="http"]</code>.
+                        </dd>
+                        <dt>Space-separated</dt>
+                        <dd>
+                            Adding whitespace between selectors says that you're looking for
+                            an element that's a descendant of another element. For example,
+                            <code class="lang-css">p a</code> will apply to any a
+                            elements that are children, grandchildren, etc. of a p.
+                            You can chain multiple selectors with spaces, e.g.
+                            <code class="lang-css">body #bonus article .info</code>.
+                        </dd>
+                        <dt>Greater than (&gt;)</dt>
+                        <dd>
+                            Adding a greater than symbol between selectors (with or without
+                            whitespace) says that you're looking for an element that's a 
+                            direct child of another element. For example,
+                            <code class="lang-css">ul.small > li</code> will apply to any
+                            list items <em>directly</em> inside unordered lists with the
+                            "small" class, but not to list items that are in sub-lists.
+                        </dd>
+                        <dt>Plus (+) and Tilde (~)</dt>
+                        <dd>
+                            Work like greater than, but between siblings, or in other words
+                            two children of the same element. The plus sign means that the
+                            browser should only look for a elements that are directly next
+                            to each other, whereas the tilde means that the second element
+                            just has to come after the first element (there can be others
+                            in between them). For example,
+                            <code class="lang-css">.main + .alt</code> will apply to any
+                            elements with the class "alt" that are immediately after an
+                            element with the class "main" within the same parent, while
+                            <code class="lang-css">.main ~ .alt</code> will apply to any
+                            elements with the class "alt" that are somewhere after an
+                            element with the class "main" within the same parent. In the
+                            following HTML, the plus operator applies to just the first
+                            "alt", while the tilde applies to all following "alt"s.
+                            <pre>
+&lt;div&gt;
+    &lt;div class="main"&gt;Elizabeth&lt;/div&gt;
+    &lt;div class="alt"&gt;Liz&lt;/div&gt;
+    &lt;div class="alt&gt;Beth&lt;/div&gt;
+&lt;/div&gt;
+                            </pre>
+                        </dd>
+                    </dl>
+                    <aside>
+                        Note: there are no ways to select a parent or a previous sibling,
+                        only ways to go down or forwards in the tree of elements.
+                    </aside>
+                </article>
+                <article>
+                    <h3>Specificity</h3>
+                    <p>
+                        In the case of conflicting styles, browser will prefer whichever
+                        style came from the more <dfn>specific</dfn> selector. The specificity
+                        of a selector is a score that the browser gives based on the parts
+                        that make up the selector. You can think of it like a comparator or
+                        a key function that you would use to sort a list in Java, Python, etc.
+                    </p>
+                    <p>
+                        Here are the rules for which style the browser selects:
+                    </p>
+                    <ol>
+                        <li>
+                            Any style defined on the HTML element itself using the
+                            <code>style</code> HTML attribute.
+                        </li>
+                        <li>
+                            Any style rule with <code class="lang-css">!important</code> on it.
+                            Note that this applies to each property, not a selector:
+                            <pre>
+.my-style {
+    padding: 4px;
+    color: green !important;
+}
+                            </pre>
+                        </li>
+                        <li>
+                            Any style that comes from a selector with an id in it. More ids take
+                            priority over fewer ids, although there's normally no reason for more
+                            than one id.
+                        </li>
+                        <li>
+                            If two selectors have the same number of ids, then whichever one has
+                            more classes, pseudo-classes*, or attribute selectors. One of each would
+                            win over two classes, but two classes and two attribute selectors would
+                            win over one of each or three classes or two classes and one pseudo-class,
+                            etc.
+                        </li>
+                        <li>
+                            If two selectors have the same number of ids and classes, then whichever
+                            one has more types or pseudo-elements. For example, 
+                            <code class="lang-css">ul > li</code> will win over <code class="lang-css">li</code>.
+                        </li>
+                        <li>
+                            If two selectors have the same number of ids, classes, and types, then
+                            whichever one was read last by the browser. The browser will always load
+                            its own default stylesheet first, which is why even if you use a selector
+                            like <code class="lang-css">a</code> which would tie the default, yours
+                            loads second so it overwrites the default.
+                        </li>
+                    </ol>
+                    <aside>
+                        *The <code class="lang-css">:not()</code> pseudo-class does not add to
+                        the specificity score. <code class="lang-css">li:first-child</code> and
+                        <code class="lang-css">li:not(:first-child)</code> have the exact same
+                        specificity score.
+                    </aside>
+                </article>
+            </article>
+            <article id="sizes">
+                <h2>Size measurements</h2>
+                <p>
+                    CSS provides several ways to specify size values:
+                </p>
+                <dl>
+                    <dt>px</dt>
+                    <dd>
+                        Pixels. While this used to mean the smallest individual changeable
+                        part of the monitor, small devices will underreport the number of
+                        pixels in their display so things don't appear tiny on them. While
+                        your phone may actually have a higher resolution than your laptop,
+                        it will typically report a much lower width or height in pixels.
+                        Regardless, px is a common default unit of measurement for sizes.
+                    </dd>
+                    <dt>%</dt>
+                    <dd>
+                        Percent. This defines the width of the element relative to the size
+                        of the nearest block element ancestor.
+                    </dd>
+                    <dt>em</dt>
+                    <dd>
+                        Represents the size of one capital letter M in the element's font
+                        size.
+                    </dd>
+                    <dt>vw/vh</dt>
+                    <dd>
+                        Viewport width/height. Similar to percent, but relative to the
+                        <em>viewport</em>, i.e. the whole visible portion of the page.
+                    </dd>
+                </dl>
+                <p>
+                    There are several other measurements that refer to physical sizes,
+                    such as <code>cm</code> for centimeters, <code>in</code> for inches,
+                    or <code>pt</code> for points (the sizing used in Mircosoft Word).
+                    These measurements are typically used for printable material; for
+                    web pages we use pixels instead.
+                </p>
+            </article>
+            <article id="box-model">
+                <h2>The Box Model</h2>
+                <p>
+                    When rendering HTML elements onto the screen, the browser surrounds each
+                    element with a rectangle/box. The rectangle allows the browser to make sure
+                    that elements don't overlap (unless we tell it to do that explcitly). It
+                    also lets us customize the size of the element and the space around it.
+                    The logic and the CSS properties that govern these boxes are collectively 
+                    known as the <dfn>box model</dfn>.
+                </p>
+                <aside>
+                    <strong>Note:</strong> the box model only applies to <em>block</em> elements, 
+                    such as <code>&lt;div&gt;</code> or elements with a CSS 
+                    <code class="lang-css">display</code> property that makes it a block
+                    (more on that in a later section). Any <em>inline</em> elements will instead
+                    contribute to the box belonging to their nearest block ancestor.
+                </aside>
+                <section>
+                    <h3>Box Model Layers</h3>
+                    <p>
+                        In order to give us more fine-grained control over spacing, the box
+                        around each element has several layers that we can size individually.
+                        I call these layers because each successive one surrounds the prevous.
+                        Going from inside to outside, the layers are: 
+                        <ol>
+                            <li>Content</li>
+                            <li>Padding</li>
+                            <li>Border</li>
+                            <li>Margin</li>
+                        </ol>
+                    </p>
+                    <p>
+                        Content is the innermost layer. The content box will default to fitting
+                        the text, images, inline children, etc. contained within the element.
+                        However, you can use the CSS <code class="lang-css">width</code> and
+                        <code class="lang-css">height</code> properties to set the size of
+                        the content box (unless you set the CSS property 
+                        <code class="lang-css">background-clip</code>; see below).
+                    </p>
+                    <p>
+                        Padding surrounds the content. It allows you to add space between the
+                        content and the border. By default, padding will have the same background
+                        as the content. For an example, see the bottom of this page &dash; there's
+                        64px worth of space with the <code>&lt;main&gt;</code>'s background color
+                        below where the content ends.
+                    </p>
+                    <p>
+                        The border goes around the padding. Borders are essentially a line that
+                        the browser draws around the padding box. You can specify how wide the
+                        line is, what drawing style the browser should use (solid, dashed, 
+                        dotted, etc.), and what color to draw it with. There are separate CSS
+                        properties for each of these, or the combined 
+                        <code class="lang-css">border</code> property that sets all three at once.
+                    </p>
+                    <p>
+                        The border is where the background of the element ends. Even if you don't
+                        specify a border directly, the browser will act as if you have a 0px wide
+                        border surrounding the padding. This is relevant when you specify the 
+                        <code class="lang-css">border-radius</code> property. Even if you don't give
+                        an element a border, the border radius will still round the corners of the
+                        background.
+                    </p>
+                    <figure>
+                        <figcaption>
+                            A div with a border radius. The curve of the border defines where
+                            the background ends, even when the border itself is transparent.
+                        </figcaption>
+                        <div class="border-radius-example">border radius example</div>
+                    </figure>
+                    <p>
+                        Finally, margin goes on the outside of the border. It works much like padding
+                        except that it does not include the element's background.
+                    </p>
+                </section>
+                <section>
+                    <h3>Blocks and the Display Property</h3>
+                    <p>
+                        As noted above, the box model only applies to block-level elements. Some 
+                        elements such as <code>&lt;div&gt;</code> will default to being block-level,
+                        while other elements will default to being <em>inline</em>, such as
+                        <code>&lt;span&gt;</code>. You can override this behavior using the CSS
+                        property <code class="lang-css">display</code>. In addition to choosing
+                        block or inline behavior, there's an in-between value of
+                        <code class="lang-css">inline-block</code>. The differences are:
+                        <ul>
+                            <li>
+                                <code class="lang-css">block</code> will separate the element 
+                                from the previous and following elements by putting it on its 
+                                own line. The browser will apply any box model properties to
+                                the element.
+                            </li>
+                            <li>
+                                <code class="lang-css">inline</code> will put the element on the 
+                                same line as the previous and following elements. The browser 
+                                will ignore any box model properties of inline elements (width, 
+                                padding, etc.).
+                            </li>
+                            <li>
+                                <code class="lang-css">inline-block</code> will put the element on
+                                the same line as the previous and following elements like it does
+                                with inline, but the browser will apply any box model properties 
+                                like it does with block.
+                            </li>
+                        </ul>
+                    </p>
+                </section>
+                <section>
+                    <h3>Box Model Modifiers</h3>
+                    <p>
+                        There are several properties that can override the default behavior of
+                        the box model as described above. The most common one I've seen is
+                        <code class="lang-css">box-sizing</code>, which changes which layer
+                        of the box model is affected by <code class="lang-css">width</code>
+                        and <code class="lang-css">height</code>. 
+                        border-box-example allows you to choose between
+                        the default of <code class="lang-css">content-box</code> and the
+                        alternative of <code class="lang-css">border-box</code>, the latter of
+                        which will make the size properties affect the content, padding, and
+                        border combined.
+                    </p>
+                    <figure>
+                        <figcaption>
+                            An example of <code class="lang-css">box-sizing: content-box</code>.
+                            Each element has a width of 25%, but because that does not include the
+                            border the four elements become wider than their parent.
+                        </figcaption>
+                        <div class="box-sizing-example">
+                            <div>1</div><div>2</div><div>3</div><div>4</div>
+                        </div>
+                    </figure>
+                    <figure>
+                        <figcaption>
+                            An example of <code class="lang-css">box-sizing: border-box</code>.
+                            Each element has a width of 25%. Unlike the previous example, this size
+                            does include the border, so they all fit on one line.
+                        </figcaption>
+                        <div class="box-sizing-example border-box-example">
+                            <div>1</div><div>2</div><div>3</div><div>4</div>
+                        </div>
+                    </figure>
+                    <p>
+                        The other notable change you can make to the box model rules is with
+                        <code class="lang-css">background-clip</code>. This property changes how
+                        far the background extends. By default, it will extend to the edge of the
+                        border, which means that if you have a transparent border with > 0 width
+                        (example: <code class="lang-css">border: 2px solid transparent;</code>)
+                        then the background will extend that width. By changing the background
+                        clip you can set it to only match the padding or content box.
+                    </p>
+                </section>
+            </article>
+            <article id="layout">
+                <h2>Layout</h2>
+                <div>⚠️Under construction⚠️</div>
+                <article>
+                    <h3>Positioning</h3>
+                </article>
+                <article>
+                    <h3>Flexbox</h3>
+                    <aside>
+                        For a concise guide to flexbox rules and what they do, see
+                        <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" rel="noreferrer noopener">this webpage</a>.
+                    </aside>
+                </article>
+            </article>
+        </main>
+    </body>
+</html>

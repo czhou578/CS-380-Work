@@ -1,0 +1,109 @@
+/*
+    selectors - ways to identify which elements should get certain styles
+
+ inherited << type << class << id << !important << on HTML tag
+ 1 class < 2 classes < 3 classes
+ 1 class + type < 2 classes
+ 1 class + 10 types < 2 classes
+*/
+
+/* class selector - applies to class="content" */
+/* 100 points - single class selector */
+.content {
+    background-color: #DDD;
+    color: #4D9;
+}
+
+/* 200 points - two class selectors */
+.content.summary {
+    color: #D49;
+}
+
+/* type selector - applies to <body> */
+body {
+    margin: 0;
+    color: #00F; /* .01 points for anything inside of <body> */
+}
+
+/* 1 point - single type selector */
+div, p, article {
+    color: #074;    
+}
+
+/* commas allow you to specify that the rules apply to multiple selectors */
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: underline;
+}
+
+/* commas separate different rules, while any combination of selector
+   within a rule works like an "and" operator.
+ */
+p, div.content {
+    padding: 0px 4px;
+}
+
+/* using a space means any element of the second selector
+   found inside an element of the first selector
+ */
+li a {
+    font-style: italic;
+}
+
+.error a {
+    color: red;
+}
+ 
+/* only applies to divs that are direct children of <body> */
+body > div {
+
+}
+
+/* only applies to inputs that are immediately after labels 
+   in the same parent 
+*/
+label + input {
+    border: 2px solid green;
+}
+
+/* id selector - applies to id="footer" */
+/* 10000 points - single id selector */
+#footer {
+    width: 100%;
+    position: absolute;
+    background-color: #8BF;
+    height: 64px;
+    bottom: 0;
+    left: 0;
+}
+
+/* pseudo-class: acts like a class, but for special rules built in
+   to browsers
+ */
+li:first-child {
+    color: red;
+}
+
+li:nth-child(4) {
+    color: green;
+}
+
+li:hover {
+    font-size: 125%;
+}
+
+input:invalid {
+    border: 2px solid red;
+}
+
+input {
+    margin-left: 24px;
+}
+
+li::before {
+    margin: 4px;
+    content: '>';
+}
+
+.hidden {
+    display: none;
+}

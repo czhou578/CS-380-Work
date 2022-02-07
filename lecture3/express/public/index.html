@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lecture 3</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <meta charset="UTF-8"/>
+  </head>
+  <body>
+    <h1>Lecture 3</h1>
+    <form action="/formsubmit" method="POST">
+      <div>
+        <label for="customer-name-input">Your name: </label>
+        <input
+          id="customer-name-input"
+          type="text"
+          name="customer" 
+        />
+        <div>
+          <label>Contact number: </label>
+          <input type="tel" name="phone" />
+        </div>
+        <div>
+          <label>Have ready by: </label>
+          <input type="datetime-local" name="time" />
+        </div>
+      </div>
+      <section>
+        <h2>Crust</h2>
+        <select name="crust">
+          <option value="normal">Regular crust</option>
+          <option value="gf">Cauliflour crust</option>
+          <option value="deep">Deep dish</option>
+        </select>
+      </section>
+      <section>
+        <h2>Sauce</h2>
+        <div>
+          <label>Marinara</label>
+          <input type="radio" name="sauce" value="tomato" />
+        </div>
+        <div>
+          <label>Barbecue</label>
+          <input type="radio" name="sauce" value="bbq" />
+        </div>
+        <div>
+          <label>Alfredo</label>
+          <input type="radio" name="sauce" value="alfredo" />
+        </div>
+        <div>
+          <label>Ranch</label>
+          <input type="radio" name="sauce" value="ranch" />
+        </div>
+      </section>
+      <section>
+        <h2>Toppings</h2>
+        <div>
+          <label>Pineapple 🍍</label>
+          <input type="checkbox" name="pineapple" value="true" />
+        </div>
+        <div>
+          <label>Canadian bacon 🐖</label>
+          <input type="checkbox" name="canadianBacon" value="true" />
+        </div>
+        <div>
+          <label>Mushroom 🍄</label>
+          <input type="checkbox" name="mushroom" />
+        </div>
+        <div>
+          <label>Anchovy 🐟</label>
+          <input type="checkbox" name="anchovy" />
+        </div>
+        <div>
+          <label>Salami</label>
+          <input type="checkbox" name="salami" />
+        </div>
+      </section>
+      <textarea name="comments" placeholder="additional comments"></textarea>
+      <button type="submit">Order a pizza</button>
+    </form>
+  </body>
+</html>
