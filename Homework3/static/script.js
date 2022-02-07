@@ -44,11 +44,11 @@ async function joinAndTasks() {
 
     let array = await result.json()
 
-    let uniqueArray = array.filter((position, item) => {
+    let uniqueArray = array.filter((item, position) => {
       return array.indexOf(item) === position
     })
 
-    await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+    await fetch(`/crew/${crewID}/tasks/cleaning1`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -58,6 +58,7 @@ async function joinAndTasks() {
     })
 
   } else if (nextTask === 'cleaning2') {
+
     let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
       method: 'GET',
       mode: 'cors',
@@ -68,6 +69,72 @@ async function joinAndTasks() {
 
     let stringArray = await result.json()
 
+    let resultObj = {}
+    let isNums = []
+    let isNotNums = []
+
+    for (const element of stringArray) {
+      if (Number(element)) {
+        isNums.push(element)
+      } else {
+        isNotNums.push(element)
+      }
+    }
+
+    resultObj['numbers'] = isNums
+    resultObj['non-numbers'] = isNotNums
+
+    console.log(resultObj);
+
+    await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(resultObj)
+    })
+
+  } else if (nextTask === 'decoding') {
+    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    
+    let response = await result.json()
+    let receivedMessage = response.message
+    let key = response.key
+    let resultMessage = ''
+
+    for (const element of receivedMessage) {
+      resultMessage += key[element]
+    }
+
+    // console.log('asd: ' + resultMessage);
+
+    fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: resultMessage
+    })
+
+  } else if (nextTask === 'lookup') {
+    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    let response = await result.json()
+    console.log(response);
   }
 
 
