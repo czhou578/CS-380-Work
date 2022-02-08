@@ -28,7 +28,7 @@ async function joinAndTasks() {
   }
 
   if (firstRequest.status === 500) { //complete repair before next task
-    repairTask()
+    repairTask(crewID)
   }
 
   let nextTask = await firstRequest.text()
@@ -113,8 +113,6 @@ async function joinAndTasks() {
       resultMessage += key[element]
     }
 
-    // console.log('asd: ' + resultMessage);
-
     fetch(`/crew/${crewID}/tasks/${nextTask}`, {
       method: 'POST',
       mode: 'cors',
@@ -182,7 +180,7 @@ async function joinAndTasks() {
     })
     
     let response = await result.json()
-    console.log('responseRouting: ' + response);
+    // console.log('responseRouting: ' + response);
 
     let firstRequestRouting = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
       method: 'PUT',
@@ -194,16 +192,41 @@ async function joinAndTasks() {
     })
 
     let firstReply = await firstRequestRouting.json()
-    console.log('responseRouting: ' + response);
-    
-    
-  }
+    // console.log('responseRouting: ' + response);
+    let responseValue = firstReply.value
+    let responseCode = firstReply.status;
 
+    while(responseCode !== 200) {
+      let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: responseValue.value
+      })
+
+      console.log('body: ' + body);
+
+      responseCode = subsequentRequest.status
+
+      let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        
+    }
+  }
 
 }
 
-async function repairTask() {
-  let repairRequest = await fetch(`http://localhost:8080/crew/${resultsResponses}/tasks/repair`, {
+async function repairTask(crewID) {
+  console.log('entered repair task');
+
+  let repairRequest = await fetch(`http://localhost:8080/crew/${crewID}/tasks/repair`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -212,26 +235,31 @@ async function repairTask() {
 
   let data = await repairRequest.json()
 
-  let numbers = Object.keys(data)
+  let result = []
 
-  
+  for (const element in data) {
+    let number = data[element]
+    if (number === 0) {
+      result.push(0)
+
+    } else {
+      number = number * -1 
+      number = 1 / number
+      number = Math.pow(number, 3)
+      number = number % 360
+      result.push(number)
+    }
+  }
+
+  await fetch(`http://localhost:8080/crew/${resultsResponses}/tasks/repair`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(result)
+  })  
 
 }
-
-//82a2ecda-49ff-4722-8479-93c24f120734
-
-// async function getNextTask() {
-//   const results = await fetch('http://localhost:8080/join', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//   })
-  
-//   console.log(results);  
-// }
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('button').addEventListener('click', function() {
