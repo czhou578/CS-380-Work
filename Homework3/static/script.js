@@ -74,7 +74,7 @@ async function joinAndTasks() {
     let isNotNums = []
 
     for (const element of stringArray) {
-      if (Number(element)) {
+      if (Number(element) || Number(element) === 0) {
         isNums.push(element)
       } else {
         isNotNums.push(element)
@@ -135,6 +135,68 @@ async function joinAndTasks() {
 
     let response = await result.json()
     console.log(response);
+    let resultValue = eval("response.tree." + response.path)
+    console.log(resultValue);
+
+    await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: resultValue
+    })
+
+  } else if (nextTask === 'dispatch') {
+    console.log('dispatch');
+
+    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    let response = await result.json()
+
+    for (let value in response) {
+      await fetch(`/crew/${crewID}/tasks/${nextTask}/${value}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: response[value]
+      })
+    }
+
+    
+  } else if (nextTask === 'routing') {
+    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    
+    let response = await result.json()
+    console.log('responseRouting: ' + response);
+
+    let firstRequestRouting = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: response.value
+    })
+
+    let firstReply = await firstRequestRouting.json()
+    console.log('responseRouting: ' + response);
+    
+    
   }
 
 
