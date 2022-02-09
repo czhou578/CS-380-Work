@@ -171,45 +171,25 @@ async function joinAndTasks() {
 
     
   } else if (nextTask === 'routing') {
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+
+    // let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+    //   method: 'GET',
+    //   mode: 'cors',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
     
-    let response = await result.json()
     // console.log('responseRouting: ' + response);
+    
+    // let firstReply = await firstRequestRouting.json()
+    
+    // let responseValue = firstReply.value
+    // let responseCode = firstReply.status;
 
-    let firstRequestRouting = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: response.value
-    })
+    while(true) {
 
-    let firstReply = await firstRequestRouting.json()
-    // console.log('responseRouting: ' + response);
-    let responseValue = firstReply.value
-    let responseCode = firstReply.status;
-
-    while(responseCode !== 200) {
-      let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: responseValue.value
-      })
-
-      console.log('body: ' + body);
-
-      responseCode = subsequentRequest.status
-
+      
       let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
         method: 'GET',
         mode: 'cors',
@@ -217,7 +197,23 @@ async function joinAndTasks() {
           'Content-Type': 'application/json'
         }
       })
-        
+      
+      let response = await result.json()
+      
+      let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: response.value
+      })
+      
+     if (subsequentRequest.status === 200) {
+        break
+     }
+      // console.log('responseCode: ' + responseCode);
+      
     }
   }
 
