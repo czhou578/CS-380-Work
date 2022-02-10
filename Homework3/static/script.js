@@ -172,48 +172,44 @@ async function joinAndTasks() {
     
   } else if (nextTask === 'routing') {
 
-    // let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-    //   method: 'GET',
-    //   mode: 'cors',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
+    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     
-    // console.log('responseRouting: ' + response);
-    
-    // let firstReply = await firstRequestRouting.json()
-    
-    // let responseValue = firstReply.value
-    // let responseCode = firstReply.status;
+    let firstReply = await result.json()
+    console.log('firstreply: ' + firstReply);
 
-    while(true) {
+    
+    let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${firstReply.path}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: firstReply.value
+    })
+    
+    let responseCode = 202
+    let laterReply = await subsequentRequest.json()
 
-      
-      let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      
-      let response = await result.json()
-      
-      let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${response.path}`, {
+    while(responseCode === 202) {
+      let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${laterReply.path}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: response.value
+        body: laterReply.value
       })
       
-     if (subsequentRequest.status === 200) {
-        break
-     }
-      // console.log('responseCode: ' + responseCode);
-      
+      if (subsequentRequest.status === 200) {
+         break
+      }
+      laterReply = await subsequentRequest.json()
     }
   }
 
