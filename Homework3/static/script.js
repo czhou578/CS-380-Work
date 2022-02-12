@@ -11,7 +11,7 @@ async function joinAndTasks() {
 
   let crewID = await results.text()
   
-  console.log('id: ' + crewID);  
+  // console.log('id: ' + crewID);  
 
   let firstRequest = await fetch(`http://localhost:8080/crew/${crewID}/tasks/next`, {
     method: 'GET',
@@ -34,184 +34,204 @@ async function joinAndTasks() {
   let nextTask = await firstRequest.text()
 
   if (nextTask === 'cleaning1') {
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    let array = await result.json()
-
-    let uniqueArray = array.filter((item, position) => {
-      return array.indexOf(item) === position
-    })
-
-    await fetch(`/crew/${crewID}/tasks/cleaning1`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(uniqueArray)
-    })
+    cleaning1(crewID, nextTask)
 
   } else if (nextTask === 'cleaning2') {
-
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    let stringArray = await result.json()
-
-    let resultObj = {}
-    let isNums = []
-    let isNotNums = []
-
-    for (const element of stringArray) {
-      if (Number(element) || Number(element) === 0) {
-        isNums.push(element)
-      } else {
-        isNotNums.push(element)
-      }
-    }
-
-    resultObj['numbers'] = isNums
-    resultObj['non-numbers'] = isNotNums
-
-    console.log(resultObj);
-
-    await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(resultObj)
-    })
+    cleaning2(crewID, nextTask)
 
   } else if (nextTask === 'decoding') {
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    
-    let response = await result.json()
-    let receivedMessage = response.message
-    let key = response.key
-    let resultMessage = ''
-
-    for (const element of receivedMessage) {
-      resultMessage += key[element]
-    }
-
-    fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: resultMessage
-    })
+    decoding(crewID, nextTask)
 
   } else if (nextTask === 'lookup') {
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    let response = await result.json()
-    console.log(response);
-    let resultValue = eval("response.tree." + response.path)
-    console.log(resultValue);
-
-    await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: resultValue
-    })
+    lookup(crewID, nextTask)
 
   } else if (nextTask === 'dispatch') {
-    console.log('dispatch');
-
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    let response = await result.json()
-
-    for (let value in response) {
-      await fetch(`/crew/${crewID}/tasks/${nextTask}/${value}`, {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: response[value]
-      })
-    }
-
+    dispatch(crewID, nextTask)
     
   } else if (nextTask === 'routing') {
+    routing(crewID, nextTask)
+  }
+}
 
-    let result = await fetch(`/crew/${crewID}/tasks/${nextTask}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    
-    let firstReply = await result.json()
-    console.log('firstreply: ' + firstReply);
+async function routing(crewID, taskName) {
+  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  let firstReply = await result.json()
+  let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${taskName}/${firstReply.path}`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: firstReply.value
+  })
+  
+  let responseCode = 202
+  let laterReply = await subsequentRequest.json()
 
-    
-    let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${firstReply.path}`, {
+  while(responseCode === 202) {
+    let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${taskName}/${laterReply.path}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: firstReply.value
+      body: laterReply.value
     })
     
-    let responseCode = 202
-    let laterReply = await subsequentRequest.json()
+    if (subsequentRequest.status === 200) {
+       break
+    }
+    laterReply = await subsequentRequest.json()
+  }
 
-    while(responseCode === 202) {
-      let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${nextTask}/${laterReply.path}`, {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: laterReply.value
-      })
-      
-      if (subsequentRequest.status === 200) {
-         break
-      }
-      laterReply = await subsequentRequest.json()
+}
+
+async function dispatch(crewID, taskName) {
+  console.log('dispatch');
+
+  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  let response = await result.json()
+
+  for (let value in response) {
+    await fetch(`/crew/${crewID}/tasks/${taskName}/${value}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: response[value]
+    })
+  }
+}
+
+async function lookup(crewID, taskName) {
+  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  let response = await result.json()
+  console.log(response);
+  let resultValue = eval("response.tree." + response.path)
+  console.log(resultValue);
+
+  await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: resultValue
+  })
+}
+
+async function decoding(crewID, taskName) {
+  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  let response = await result.json()
+  let receivedMessage = response.message
+  let key = response.key
+  let resultMessage = ''
+
+  for (const element of receivedMessage) {
+    resultMessage += key[element]
+  }
+
+  fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: resultMessage
+  })
+
+}
+
+async function cleaning2(crewID, taskName) {
+  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  let stringArray = await result.json()
+
+  let resultObj = {}
+  let isNums = []
+  let isNotNums = []
+
+  for (const element of stringArray) {
+    if (Number(element) || Number(element) === 0) {
+      isNums.push(element)
+    } else {
+      isNotNums.push(element)
     }
   }
+
+  resultObj['numbers'] = isNums
+  resultObj['non-numbers'] = isNotNums
+
+  console.log(resultObj);
+
+  await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(resultObj)
+  })
+}
+
+async function cleaning1(crewID, taskName) {
+  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  let array = await result.json()
+
+  let uniqueArray = array.filter((item, position) => {
+    return array.indexOf(item) === position
+  })
+
+  await fetch(`/crew/${crewID}/tasks/cleaning1`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(uniqueArray)
+  })
 
 }
 
