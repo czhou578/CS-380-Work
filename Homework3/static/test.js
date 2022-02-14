@@ -23,9 +23,11 @@ async function joinAndTasks() {
 
     if (firstRequest.status === 204 && firstRequest.body !== null) { //completed all tasks
       break
+
     } else if (firstRequest.status === 500) { //complete repair before next task
       await repairTask(crewID)
       continue
+      
     } else {
       nextTask = await firstRequest.text()
     }
@@ -65,7 +67,6 @@ async function cleaning1(crewID, taskName) {
   })
 
   let array = await result.json()
-
   let uniqueArray = array.filter((item, position) => {
     return array.indexOf(item) === position
   })
@@ -117,6 +118,7 @@ async function routing(crewID, taskName) {
     if (subsequentRequest.status === 200) {
        break
     }
+
     laterReply = await subsequentRequest.json()
   }
 
@@ -242,7 +244,6 @@ async function repairTask(crewID) {
   })
 
   let data = await repairRequest.json()
-
   let result = []
 
   for (const element in data) {
