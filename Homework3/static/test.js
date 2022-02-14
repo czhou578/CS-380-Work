@@ -7,12 +7,8 @@ async function joinAndTasks() {
       'Content-Type': 'application/json'
     },
   })
-  // console.log(results);
 
   let crewID = await results.text()
-  
-  // console.log('id: ' + crewID);  
-
   
   while (true) {
     let firstRequest = await fetch(`http://localhost:8080/crew/${crewID}/tasks/next`, {
@@ -28,42 +24,39 @@ async function joinAndTasks() {
     if (firstRequest.status === 204 && firstRequest.body !== null) { //completed all tasks
       break
     } else if (firstRequest.status === 500) { //complete repair before next task
-      repairTask(crewID)
+      await repairTask(crewID)
+      continue
     } else {
       nextTask = await firstRequest.text()
-    } 
-  
+    }
   
     if (nextTask === 'cleaning1') {
-      cleaning1(crewID, nextTask)
+      await cleaning1(crewID, nextTask)
   
     } else if (nextTask === 'cleaning2') {
-      cleaning2(crewID, nextTask)
+      await cleaning2(crewID, nextTask)
   
     } else if (nextTask === 'decoding') {
-      decoding(crewID, nextTask)
+      await decoding(crewID, nextTask)
   
     } else if (nextTask === 'lookup') {
-      lookup(crewID, nextTask)
+      await lookup(crewID, nextTask)
   
     } else if (nextTask === 'dispatch') {
-      dispatch(crewID, nextTask)
+      await dispatch(crewID, nextTask)
       
     } else if (nextTask === 'routing') {
-      routing(crewID, nextTask)
+      await routing(crewID, nextTask)
     }
 
-    // console.log('did it loop back');
-    
   }
 
   console.log('Finished with all tasks!');
   return 
-  
 }
 
 async function cleaning1(crewID, taskName) {
-  let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
+  let result = await fetch(`http://localhost:8080/crew/${crewID}/tasks/${taskName}`, {
     method: 'GET',
     mode: 'cors',
     headers: {
@@ -72,13 +65,10 @@ async function cleaning1(crewID, taskName) {
   })
 
   let array = await result.json()
-  console.log('cleaning1array: ' + array);
 
   let uniqueArray = array.filter((item, position) => {
     return array.indexOf(item) === position
   })
-
-  console.log('uniqueArray: ' + uniqueArray);
 
   await fetch(`/crew/${crewID}/tasks/cleaning1`, {
     method: 'POST',
@@ -101,7 +91,6 @@ async function routing(crewID, taskName) {
   })
   
   let firstReply = await result.json()
-  console.log('routingFirstReply: ' + firstReply);
 
   let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${taskName}/${firstReply.path}`, {
     method: 'PUT',
@@ -114,8 +103,6 @@ async function routing(crewID, taskName) {
   
   let responseCode = 202
   let laterReply = await subsequentRequest.json()
-
-  console.log('routinglaterReply: ' + laterReply);
 
   while(responseCode === 202) {
     let subsequentRequest = await fetch(`/crew/${crewID}/tasks/${taskName}/${laterReply.path}`, {
@@ -131,14 +118,11 @@ async function routing(crewID, taskName) {
        break
     }
     laterReply = await subsequentRequest.json()
-    console.log('routinglaterReplyInLoop: ' + laterReply);
   }
 
 }
 
 async function dispatch(crewID, taskName) {
-  console.log('dispatch');
-
   let result = await fetch(`/crew/${crewID}/tasks/${taskName}`, {
     method: 'GET',
     mode: 'cors',
@@ -159,8 +143,6 @@ async function dispatch(crewID, taskName) {
       body: response[value]
     })
   }
-
-  return
 }
 
 async function lookup(crewID, taskName) {
@@ -173,9 +155,7 @@ async function lookup(crewID, taskName) {
   })
 
   let response = await result.json()
-  console.log(response);
   let resultValue = eval("response.tree." + response.path)
-  console.log('lookup result value');
 
   await fetch(`/crew/${crewID}/tasks/${taskName}`, {
     method: 'POST',
@@ -185,8 +165,6 @@ async function lookup(crewID, taskName) {
     },
     body: resultValue
   })
-
-  return
 }
 
 async function decoding(crewID, taskName) {
@@ -207,7 +185,7 @@ async function decoding(crewID, taskName) {
     resultMessage += key[element]
   }
 
-  fetch(`/crew/${crewID}/tasks/${taskName}`, {
+  await fetch(`/crew/${crewID}/tasks/${taskName}`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -244,8 +222,6 @@ async function cleaning2(crewID, taskName) {
   resultObj['numbers'] = isNums
   resultObj['non-numbers'] = isNotNums
 
-  console.log(resultObj);
-
   await fetch(`/crew/${crewID}/tasks/${taskName}`, {
     method: 'POST',
     mode: 'cors',
@@ -256,10 +232,7 @@ async function cleaning2(crewID, taskName) {
   })
 }
 
-
-
 async function repairTask(crewID) {
-  console.log('entered repair task');
 
   let repairRequest = await fetch(`http://localhost:8080/crew/${crewID}/tasks/repair`, {
     method: 'GET',
@@ -278,7 +251,9 @@ async function repairTask(crewID) {
       result.push(0)
 
     } else {
-      number = number * -1 
+      if (number < 0) {
+        number = number * -1 
+      }
       number = 1 / number
       number = Math.pow(number, 3)
       number = number % 360
@@ -286,8 +261,9 @@ async function repairTask(crewID) {
     }
   }
 
-  await fetch(`http://localhost:8080/crew/${resultsResponses}/tasks/repair`, {
+  await fetch(`http://localhost:8080/crew/${crewID}/tasks/repair`, {
     method: 'POST',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },
