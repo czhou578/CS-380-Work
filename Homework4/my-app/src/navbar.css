@@ -1,0 +1,20 @@
+.navbarContainer {
+  background-color: aliceblue;
+  padding: 20px;
+}
+
+.navbarContainer > ul li {
+  display: inline;
+  margin-left: 30px;
+  font-size: 20px;
+}
+
+ul {
+  margin-top: 0;
+}
+
+.navbarContainer > ul li:hover {
+  color: darkcyan;
+  cursor: pointer;
+}
+
