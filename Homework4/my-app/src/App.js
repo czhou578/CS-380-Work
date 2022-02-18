@@ -1,5 +1,7 @@
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './Navbar';
+import Zones from './Zones';
 
 function App() {
   return (
@@ -7,6 +9,9 @@ function App() {
       <div className='headerbar'>
         <Navbar />
       </div>
+      <Routes>
+        <Route path="/" element={<Zones />} />
+      </Routes>
     </div>
   );
 }

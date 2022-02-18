@@ -5,9 +5,12 @@ export default function Navbar() {
   return (
     <div className="navbarContainer">
       <ul>
-        <li>Zone Management</li>
+        <a href="./Zones">
+          <li>Zone Management</li>
+        </a>
         <li>Register Food</li>
         <li>Search Foods</li>
+        <li>Shopping List</li>
       </ul>
     </div>
   )
