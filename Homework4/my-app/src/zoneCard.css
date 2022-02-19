@@ -1,0 +1,10 @@
+.zoneCardWrapper {
+  margin-top: 20px;
+  border: 2px solid black;
+}
+
+.zoneCardWrapper > #remove {
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
