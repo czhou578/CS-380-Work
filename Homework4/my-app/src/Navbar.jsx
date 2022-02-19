@@ -1,14 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './navbar.css'
 
 export default function Navbar() {
   return (
     <div className="navbarContainer">
       <ul>
-        <a href="./Zones">
+        <Link to={"/"}>
           <li>Zone Management</li>
-        </a>
-        <li>Register Food</li>
+        </Link>
+        <Link to={"/search-food"}>
+          <li>Register Food</li>
+        </Link>
         <li>Search Foods</li>
         <li>Shopping List</li>
       </ul>

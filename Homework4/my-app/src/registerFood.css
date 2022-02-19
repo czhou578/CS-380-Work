@@ -1,0 +1,16 @@
+.registerWrapper {
+  margin-left: 40%;
+  margin-top: 5%;
+}
+
+.registerWrapper > div {
+  margin-top: 10px;
+}
+
+.registerWrapper > div > label {
+  margin-right: 10px;
+}
+
+.buttonWrapper > button {
+  margin-right: 10px;
+}

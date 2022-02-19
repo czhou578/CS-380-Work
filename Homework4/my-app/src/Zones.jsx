@@ -15,7 +15,7 @@ export default function Zones() {
       <div className='currentZoneWrapper'>
         <h3>Current Zones</h3>
           {zones.map((element, key) => {
-            return <ZoneCard key={key} zoneInfo={element}/>
+            return <ZoneCard key={key} zoneInfo={element} setZones={setZones} zones={zones}/>
           })}
       </div>
     </div>
