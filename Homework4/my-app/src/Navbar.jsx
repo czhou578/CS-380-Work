@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './navbar.css'
+import "./navbar.css";
 
 export default function Navbar() {
   return (
@@ -16,5 +16,5 @@ export default function Navbar() {
         <li>Shopping List</li>
       </ul>
     </div>
-  )
+  );
 }
