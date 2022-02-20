@@ -9,9 +9,7 @@ export default function RegisteringFood(props) {
   const [units, setUnits] = useState("");
   const [minstock, setMinstock] = useState(0);
 
-  const onRegisterHandler = () => {
-    
-  };
+  const onRegisterHandler = () => {};
 
   return (
     <div className="registerWrapper">

@@ -1,12 +1,11 @@
 const addFoodReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'addFood':
-      
+    case "addFood":
       break;
-  
+
     default:
       break;
   }
-}
+};
 
-export default addFoodReducer
+export default addFoodReducer;
