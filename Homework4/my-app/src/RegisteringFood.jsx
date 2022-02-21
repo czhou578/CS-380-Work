@@ -5,23 +5,31 @@ import { addFoodAction } from "./actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function RegisteringFood(props) {
-  // const [registeredFood, setRegisteredFood] = useState([]);
   const [name, setName] = useState("");
   const [barcode, setBarcode] = useState("");
-  const [units, setUnits] = useState("");
+  const [units, setUnits] = useState("ounces");
   const [minstock, setMinstock] = useState(0);
+  const [error, setError] = useState("");
+  const registeredFood = useSelector((state) => state.allFoodArray);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onRegisterHandler = () => {
     let enteredFood = {
       foodName: name,
       foodBarcode: barcode,
       foodUnits: units,
-      foodStock: minstock
+      foodStock: minstock,
+    };
+
+    for (const food of registeredFood) {
+      if (food.foodBarcode === barcode) {
+        setError("Food with this barcode already registered, try again.");
+        return;
+      }
     }
 
-    dispatch(addFoodAction(enteredFood))
+    dispatch(addFoodAction(enteredFood));
   };
 
   return (
@@ -72,6 +80,8 @@ export default function RegisteringFood(props) {
         <button onClick={() => onRegisterHandler()}>Register Food</button>
         <button>Cancel</button>
       </div>
+
+      {setError !== "" ? <div> {error} </div> : null}
     </div>
   );
 }
