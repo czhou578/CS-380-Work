@@ -1,9 +1,11 @@
 import { useState } from "react";
+import './zonemodal.css'
 
 export default function ZoneModal(props) {
   const { setZones, setOpenZoneModal, zones } = props;
   const [zoneName, setZoneName] = useState("");
-  const [colorSelect, setColorSelect] = useState("");
+  const [colorSelect, setColorSelect] = useState("orange");
+  const [error, setError] = useState("")
 
   const submitZoneInfo = () => {
     let resultObj = {
@@ -11,21 +13,28 @@ export default function ZoneModal(props) {
       name: zoneName,
     };
 
+    for (let zone of zones) {
+      if (zone.color === resultObj.color) {
+        setError("Zone color already in use, please try again.")
+        return
+      } else {
+        setError("")
+      }
+    }
+
     setZones([...zones, resultObj]);
   };
 
   return (
     <div className="selectionWrapper">
       <h2>Add Zone</h2>
-      <div>
-        <label htmlFor="">
-          Name:
+      <div className="inputs">
+        <label htmlFor=""> Name:</label>
           <input
             type="text"
             placeholder="name"
             onChange={(e) => setZoneName(e.target.value)}
           />
-        </label>
         <label htmlFor=""> Color: </label>
         <select
           name="colors"
@@ -43,6 +52,7 @@ export default function ZoneModal(props) {
         <button onClick={() => submitZoneInfo()}>Add Zone</button>
         <button onClick={() => setOpenZoneModal(false)}>Cancel</button>
       </div>
+      {setError !== "" ? <p>{error}</p> : null}
     </div>
   );
 }

@@ -18,3 +18,7 @@
 .addCancel button {
   margin-left: 20px;
 }
+
+.currentZoneWrapper {
+  display: inline-block;
+}

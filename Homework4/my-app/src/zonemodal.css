@@ -1,0 +1,17 @@
+
+.selectionWrapper {
+  margin-left: 40%;
+  margin-top: 6%;
+}
+
+.selectionWrapper > h2 {
+  margin-bottom: 20px;
+}
+
+.inputs > label {
+  margin-right: 10px;
+}
+
+.addCancel {
+  margin-bottom: 10px;
+}

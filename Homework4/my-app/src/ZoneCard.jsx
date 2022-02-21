@@ -1,6 +1,5 @@
 export default function ZoneCard(props) {
   const { zoneInfo, setZones, zones } = props;
-
   console.log(zones);
 
   const removeZone = (deleteElement) => {
