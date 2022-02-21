@@ -26,6 +26,8 @@ export default function RegisteringFood(props) {
       if (food.foodBarcode === barcode) {
         setError("Food with this barcode already registered, try again.");
         return;
+      } else {
+        setError("")
       }
     }
 
