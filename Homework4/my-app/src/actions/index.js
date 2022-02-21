@@ -1,5 +1,6 @@
-export const addFoodAction = () => {
+export const addFoodAction = (food) => {
   return {
-    type: 'addFood'
+    type: 'addFood',
+    newFood: food
   }
 }

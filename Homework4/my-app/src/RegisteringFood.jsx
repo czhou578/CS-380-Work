@@ -5,13 +5,24 @@ import { addFoodAction } from "./actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function RegisteringFood(props) {
-  const [registeredFood, setRegisteredFood] = useState([]);
+  // const [registeredFood, setRegisteredFood] = useState([]);
   const [name, setName] = useState("");
   const [barcode, setBarcode] = useState("");
   const [units, setUnits] = useState("");
   const [minstock, setMinstock] = useState(0);
 
-  const onRegisterHandler = () => {};
+  const dispatch = useDispatch()
+
+  const onRegisterHandler = () => {
+    let enteredFood = {
+      foodName: name,
+      foodBarcode: barcode,
+      foodUnits: units,
+      foodStock: minstock
+    }
+
+    dispatch(addFoodAction(enteredFood))
+  };
 
   return (
     <div className="registerWrapper">
@@ -58,7 +69,7 @@ export default function RegisteringFood(props) {
         />
       </div>
       <div className="buttonWrapper">
-        <button>Register Food</button>
+        <button onClick={() => onRegisterHandler()}>Register Food</button>
         <button>Cancel</button>
       </div>
     </div>
