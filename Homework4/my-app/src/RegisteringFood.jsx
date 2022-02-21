@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import "./registerFood.css";
+import { addFoodAction } from "./actions";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function RegisteringFood(props) {
   const [registeredFood, setRegisteredFood] = useState([]);

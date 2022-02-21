@@ -1,10 +1,16 @@
-const addFoodReducer = (state = {}, action) => {
+const initialFoodManagerState = {
+  allFoodArray: []
+}
+
+const addFoodReducer = (state = initialFoodManagerState, action) => {
   switch (action.type) {
     case "addFood":
-      break;
-
+      return {
+        ...state,
+        allFoodArray: [...state.allFoodArray, action.newFood]
+      }
     default:
-      break;
+      return state
   }
 };
 
