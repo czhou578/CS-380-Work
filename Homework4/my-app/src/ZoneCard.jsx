@@ -3,8 +3,7 @@
  * on the UI
  */
 
-import './zoneCard.css'
-
+import "./zoneCard.css";
 
 export default function ZoneCard(props) {
   const { zoneInfo, setZones, zones } = props;

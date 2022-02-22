@@ -26,15 +26,15 @@ export default function RegisteringFood(props) {
       if (food.foodBarcode === barcode) {
         setError("Food with this barcode already registered, try again.");
         return;
-      } 
+      }
     }
 
     dispatch(addFoodAction(enteredFood));
-    setError("Successfully added!")
+    setError("Successfully added!");
 
     setTimeout(() => {
-      setError("")
-    }, 2000)
+      setError("");
+    }, 2000);
   };
 
   return (

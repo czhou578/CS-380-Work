@@ -1,11 +1,11 @@
 import { useState } from "react";
-import './zonemodal.css'
+import "./zonemodal.css";
 
 export default function ZoneModal(props) {
   const { setZones, setOpenZoneModal, zones } = props;
   const [zoneName, setZoneName] = useState("");
   const [colorSelect, setColorSelect] = useState("orange");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   const submitZoneInfo = () => {
     let resultObj = {
@@ -15,10 +15,10 @@ export default function ZoneModal(props) {
 
     for (let zone of zones) {
       if (zone.color === resultObj.color) {
-        setError("Zone color already in use, please try again.")
-        return
+        setError("Zone color already in use, please try again.");
+        return;
       } else {
-        setError("")
+        setError("");
       }
     }
 
@@ -30,11 +30,11 @@ export default function ZoneModal(props) {
       <h2>Add Zone</h2>
       <div className="inputs">
         <label htmlFor=""> Name:</label>
-          <input
-            type="text"
-            placeholder="name"
-            onChange={(e) => setZoneName(e.target.value)}
-          />
+        <input
+          type="text"
+          placeholder="name"
+          onChange={(e) => setZoneName(e.target.value)}
+        />
         <label htmlFor=""> Color: </label>
         <select
           name="colors"
