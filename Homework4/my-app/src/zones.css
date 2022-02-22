@@ -1,3 +1,7 @@
+.zoneWrapper {
+  position: relative;
+}
+
 .zoneWrapper > button {
   margin-top: 5%;
   margin-left: 50%;
@@ -21,4 +25,11 @@
 
 .currentZoneWrapper {
   display: inline-block;
+  position: absolute;
+  left: 350px;
+  top: 35px;
+}
+
+.currentZoneWrapper > h3 {
+  margin-bottom: 20px;
 }
