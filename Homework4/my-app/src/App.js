@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import FoodSearch from "./FoodSearch";
 import Navbar from "./Navbar";
 import RegisteringFood from "./RegisteringFood";
 import Zones from "./Zones";
@@ -12,7 +13,8 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<Zones />} />
-        <Route path="/search-food" element={<RegisteringFood />} />
+        <Route path="/register-food" element={<RegisteringFood />} />
+        <Route path="/search-food" element={<FoodSearch />} />
       </Routes>
     </div>
   );

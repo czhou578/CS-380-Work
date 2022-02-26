@@ -9,10 +9,12 @@ export default function Navbar() {
         <Link to={"/"}>
           <li>Zone Management</li>
         </Link>
-        <Link to={"/search-food"}>
+        <Link to={"/register-food"}>
           <li>Register Food</li>
         </Link>
-        <li>Search Foods</li>
+        <Link to={"search-food"}>
+          <li>Search Foods</li>
+        </Link>
         <li>Shopping List</li>
       </ul>
     </div>
