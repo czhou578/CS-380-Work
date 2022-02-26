@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useStore, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
 
 //link manage button to respective links
 
@@ -36,7 +37,9 @@ export default function FoodSearch(props) {
         {foundFood ? (
           <div>
             <h2>Food Name: {foundFood.foodName}</h2>
-            <button>Manage</button>
+            <Link to={`quantity-manage:${foundFood.foodBarcode}`}>
+              <button>Manage</button>
+            </Link>
           </div>
         ) : null}
         {error ? (
@@ -45,6 +48,7 @@ export default function FoodSearch(props) {
           </div>
         ) : null}
       </div>
+      <Outlet />
     </div>
   );
 }
