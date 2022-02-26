@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
+import QuantityManagement from "./QuantityManagement";
 
 //link manage button to respective links
 
@@ -8,6 +9,7 @@ export default function FoodSearch(props) {
   const [foodSearch, setFoodSearch] = useState(null);
   const [foundFood, setFoundFood] = useState(null);
   const [error, setError] = useState(false);
+  const [manageOpen, setManageOpen] = useState(false);
   const registeredFood = useSelector((state) => state.allFoodArray);
 
   const findFood = () => {
@@ -37,9 +39,7 @@ export default function FoodSearch(props) {
         {foundFood ? (
           <div>
             <h2>Food Name: {foundFood.foodName}</h2>
-            <Link to={`quantity-manage:${foundFood.foodBarcode}`}>
-              <button>Manage</button>
-            </Link>
+            <button onClick={() => setManageOpen(true)}>Manage</button>
           </div>
         ) : null}
         {error ? (
@@ -48,7 +48,12 @@ export default function FoodSearch(props) {
           </div>
         ) : null}
       </div>
-      <Outlet />
+
+      {setManageOpen ? (
+        <div>
+          <QuantityManagement foundFood={foundFood}/>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -15,8 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Zones />} />
         <Route path="/register-food" element={<RegisteringFood />} />
-        <Route path="/search-food" element={<FoodSearch />}> 
-          <Route path="/search-food/quantity-manage:foodBarcode" element={<QuantityManagement />} />
+        <Route path="/search-food" element={<FoodSearch />}>
+          {/* <Route path="/search-food/quantity-manage:foodBarcode" element={<QuantityManagement />} /> */}
         </Route>
       </Routes>
     </div>
