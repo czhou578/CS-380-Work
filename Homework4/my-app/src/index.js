@@ -9,12 +9,12 @@ import addFoodReducer from "./reducers/AddFoodReducer";
 import addZoneReducer from "./reducers/AddZoneReducer";
 import allReducers from "./reducers/index";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
+// const composeEnhancers = 
 const store = createStore(
-  addFoodReducer,
+  allReducers,
   // addFoodReducer,
   // addZoneReducer,
-  composeEnhancers()
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() 
 );
 
 ReactDOM.render(

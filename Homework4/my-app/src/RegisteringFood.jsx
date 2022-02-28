@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "./registerFood.css";
-import { addFoodAction } from "./actions";
+import { addFoodAction } from "./actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function RegisteringFood(props) {
@@ -10,7 +10,7 @@ export default function RegisteringFood(props) {
   const [units, setUnits] = useState("ounces");
   const [minstock, setMinstock] = useState(0);
   const [error, setError] = useState("");
-  const registeredFood = useSelector((state) => state.allFoodArray);
+  const registeredFood = useSelector((state) => state.addFoodReducer.allFoodArray);
   console.log('state: ' + registeredFood);
 
   const dispatch = useDispatch();

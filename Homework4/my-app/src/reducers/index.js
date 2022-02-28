@@ -3,8 +3,8 @@ import addFoodReducer from "./AddFoodReducer";
 import addZoneReducer from "./AddZoneReducer";
 
 const allReducers = combineReducers({
-  foodReducer: addFoodReducer,
-  zoneReducer: addZoneReducer
+  addFoodReducer,
+  addZoneReducer
 })
 
 export default allReducers

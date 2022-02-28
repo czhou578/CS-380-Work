@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./zonemodal.css";
-import { addZoneAction } from "./actions";
+import { addZoneAction } from "./actions/index";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ZoneModal(props) {
@@ -9,7 +9,7 @@ export default function ZoneModal(props) {
   const [colorSelect, setColorSelect] = useState("orange");
   const [error, setError] = useState("");
   const dispatch = useDispatch()
-  const test = useSelector((state) => state.zones)
+  const test = useSelector((state) => state.addZoneReducer.zones)
   console.log(test);
 
   const submitZoneInfo = () => {
@@ -28,7 +28,7 @@ export default function ZoneModal(props) {
     }
     
     dispatch(addZoneAction(resultObj))
-
+    console.log('hello');
     setZones([...zones, resultObj]);
   };
 
