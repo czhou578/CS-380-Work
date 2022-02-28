@@ -10,7 +10,10 @@ export default function FoodSearch(props) {
   const [foundFood, setFoundFood] = useState(null);
   const [error, setError] = useState(false);
   const [manageOpen, setManageOpen] = useState(false);
-  const registeredFood = useSelector((state) => state.allFoodArray);
+  const registeredFood = useSelector(
+    (state) => state.addFoodReducer.allFoodArray
+  );
+  const registeredZones = useSelector((state) => state.addZoneReducer.allZones);
 
   const findFood = () => {
     for (const foodObj of registeredFood) {
@@ -51,7 +54,10 @@ export default function FoodSearch(props) {
 
       {setManageOpen && foundFood ? (
         <div>
-          <QuantityManagement foundFood={foundFood}/>
+          <QuantityManagement
+            foundFood={foundFood}
+            registeredZones={registeredZones}
+          />
         </div>
       ) : null}
     </div>

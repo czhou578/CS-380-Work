@@ -1,17 +1,17 @@
 const noZoneState = {
   allZones: [],
-}
+};
 
 const addZoneReducer = (state = noZoneState, action) => {
   switch (action.type) {
     case "addZone":
       return {
         ...state.allZones,
-        allZones: [...state.allZones, action.newZone]
+        allZones: [...state.allZones, action.newZone],
       };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default addZoneReducer
+export default addZoneReducer;

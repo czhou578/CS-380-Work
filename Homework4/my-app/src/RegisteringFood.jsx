@@ -10,8 +10,10 @@ export default function RegisteringFood(props) {
   const [units, setUnits] = useState("ounces");
   const [minstock, setMinstock] = useState(0);
   const [error, setError] = useState("");
-  const registeredFood = useSelector((state) => state.addFoodReducer.allFoodArray);
-  console.log('state: ' + registeredFood);
+  const registeredFood = useSelector(
+    (state) => state.addFoodReducer.allFoodArray
+  );
+  console.log("state: " + registeredFood);
 
   const dispatch = useDispatch();
 

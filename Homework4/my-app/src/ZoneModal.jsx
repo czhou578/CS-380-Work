@@ -8,8 +8,8 @@ export default function ZoneModal(props) {
   const [zoneName, setZoneName] = useState("");
   const [colorSelect, setColorSelect] = useState("orange");
   const [error, setError] = useState("");
-  const dispatch = useDispatch()
-  const test = useSelector((state) => state.addZoneReducer.zones)
+  const dispatch = useDispatch();
+  const test = useSelector((state) => state.addZoneReducer.zones);
   console.log(test);
 
   const submitZoneInfo = () => {
@@ -26,9 +26,9 @@ export default function ZoneModal(props) {
         setError("");
       }
     }
-    
-    dispatch(addZoneAction(resultObj))
-    console.log('hello');
+
+    dispatch(addZoneAction(resultObj));
+    console.log("hello");
     setZones([...zones, resultObj]);
   };
 

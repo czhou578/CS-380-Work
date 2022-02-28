@@ -8,6 +8,6 @@ export const addFoodAction = (food) => {
 export const addZoneAction = (zone) => {
   return {
     type: "addZone",
-    newZone: zone
-  }
-}
+    newZone: zone,
+  };
+};

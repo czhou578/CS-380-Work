@@ -4,7 +4,7 @@ import addZoneReducer from "./AddZoneReducer";
 
 const allReducers = combineReducers({
   addFoodReducer,
-  addZoneReducer
-})
+  addZoneReducer,
+});
 
-export default allReducers
+export default allReducers;
