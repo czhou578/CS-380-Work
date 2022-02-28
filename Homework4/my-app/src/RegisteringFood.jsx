@@ -11,6 +11,7 @@ export default function RegisteringFood(props) {
   const [minstock, setMinstock] = useState(0);
   const [error, setError] = useState("");
   const registeredFood = useSelector((state) => state.allFoodArray);
+  console.log('state: ' + registeredFood);
 
   const dispatch = useDispatch();
 

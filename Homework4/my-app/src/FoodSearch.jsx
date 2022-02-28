@@ -49,7 +49,7 @@ export default function FoodSearch(props) {
         ) : null}
       </div>
 
-      {setManageOpen ? (
+      {setManageOpen && foundFood ? (
         <div>
           <QuantityManagement foundFood={foundFood}/>
         </div>

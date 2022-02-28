@@ -10,7 +10,7 @@ const addFoodReducer = (state = initialFoodManagerState, action) => {
         allFoodArray: [...state.allFoodArray, action.newFood],
       };
     default:
-      return state;
+      return state
   }
 };
 

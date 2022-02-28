@@ -4,12 +4,17 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import foodReducer from "./reducers/AddFood";
+import { createStore, compose } from "redux";
+import addFoodReducer from "./reducers/AddFoodReducer";
+import addZoneReducer from "./reducers/AddZoneReducer";
+import allReducers from "./reducers/index";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
 const store = createStore(
-  foodReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  addFoodReducer,
+  // addFoodReducer,
+  // addZoneReducer,
+  composeEnhancers()
 );
 
 ReactDOM.render(

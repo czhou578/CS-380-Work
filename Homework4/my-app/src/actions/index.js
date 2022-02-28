@@ -4,3 +4,10 @@ export const addFoodAction = (food) => {
     newFood: food,
   };
 };
+
+export const addZoneAction = (zone) => {
+  return {
+    type: "addZone",
+    newZone: zone
+  }
+}
