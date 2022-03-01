@@ -16,7 +16,6 @@ const addZoneReducer = (state = noZoneState, action) => {
         }
 
         return tempObject
-
       })
       return {
         allZones: array,
