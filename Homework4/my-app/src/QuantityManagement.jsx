@@ -1,5 +1,34 @@
+import { useDispatch } from "react-redux";
+import { addZoneActionFood } from "./actions";
+
+
 export default function QuantityManagement(props) {
   const { foundFood, registeredZones } = props;
+  const dispatch = useDispatch()
+  
+  const addQuantityHandler = () => {
+    let inputs = document.getElementsByClassName("quantityInput")
+    console.log(inputs);
+    let name = foundFood.foodName
+
+    
+    for (let i = 0; i < registeredZones.length; i++) {
+      let newZoneObj = {
+        // ...registeredZones[i],
+        [name]: inputs[i].valueAsNumber
+      }
+
+      console.log(newZoneObj);
+      
+      // registeredZones.map(zone => )
+      // console.log(inputs[0]);
+      // registeredZones[i][name] = inputs[i].valueAsNumber
+      
+      dispatch(addZoneActionFood(newZoneObj))
+      
+    }
+    console.log('num of zones: ' + registeredZones.length);
+  }
 
   return (
     <div className="QMwrapper">
@@ -10,7 +39,8 @@ export default function QuantityManagement(props) {
       <div>
         {registeredZones
           ? registeredZones.map((element, key) => {
-              if (element.foundFood.foodName === undefined) {
+            console.log(element);
+              if (Object.keys(element).length === 2) {
                 return (
                   <div key={key}>
                     <h3>Zone: {element.name}</h3>
@@ -19,6 +49,7 @@ export default function QuantityManagement(props) {
                       type="number"
                       min={1}
                       max={40}
+                      className="quantityInput"
                       // onChange={(e) => setMinstock(e.target.value)}
                     />
                   </div>
@@ -32,6 +63,7 @@ export default function QuantityManagement(props) {
                       type="number"
                       min={1}
                       max={40}
+                      className="quantityInput"
                       // onChange={(e) => setMinstock(e.target.value)}
                     />
                   </div>
@@ -40,7 +72,7 @@ export default function QuantityManagement(props) {
             })
           : null}
         <div>
-          <button>Add Quantities</button>
+          <button onClick={() => addQuantityHandler()}>Add Quantities</button>
         </div>
       </div>
     </div>

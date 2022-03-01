@@ -11,3 +11,11 @@ export const addZoneAction = (zone) => {
     newZone: zone,
   };
 };
+
+export const addZoneActionFood = (zoneUpdateFood) => {
+  return {
+    type: "addZoneActionFood",
+    newZoneFood: zoneUpdateFood,
+  };
+};
+
