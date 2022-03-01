@@ -5,29 +5,27 @@ import { addZoneActionFood } from "./actions";
 export default function QuantityManagement(props) {
   const { foundFood, registeredZones } = props;
   const dispatch = useDispatch()
+  let name = foundFood.foodName
   
   const addQuantityHandler = () => {
     let inputs = document.getElementsByClassName("quantityInput")
     console.log(inputs);
-    let name = foundFood.foodName
 
     
     for (let i = 0; i < registeredZones.length; i++) {
+      console.log('enetered value: ' + inputs[i].valueAsNumber);
+      console.log(i);
       let newZoneObj = {
-        // ...registeredZones[i],
-        [name]: inputs[i].valueAsNumber
+        [name]: inputs[i].valueAsNumber,
+        index: i
       }
 
       console.log(newZoneObj);
       
-      // registeredZones.map(zone => )
-      // console.log(inputs[0]);
-      // registeredZones[i][name] = inputs[i].valueAsNumber
-      
       dispatch(addZoneActionFood(newZoneObj))
       
     }
-    console.log('num of zones: ' + registeredZones.length);
+    // console.log('num of zones: ' + registeredZones.length);
   }
 
   return (
@@ -58,7 +56,7 @@ export default function QuantityManagement(props) {
                 return (
                   <div key={key}>
                     <h3>Zone: {element.name}</h3>
-                    <h4>Current Amount: {element.foundFood}</h4>
+                    <h4>Current Amount: {element[name]}</h4>
                     <input
                       type="number"
                       min={1}
