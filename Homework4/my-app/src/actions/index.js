@@ -18,4 +18,3 @@ export const addZoneActionFood = (zoneUpdateFood) => {
     newZoneFood: zoneUpdateFood,
   };
 };
-

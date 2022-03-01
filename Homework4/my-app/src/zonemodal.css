@@ -1,6 +1,8 @@
 .selectionWrapper {
-  margin-left: 40%;
+  margin-left: 50%;
   margin-top: 6%;
+  border: 2px solid red;
+  background-color: lightgreen;
 }
 
 .selectionWrapper > h2 {

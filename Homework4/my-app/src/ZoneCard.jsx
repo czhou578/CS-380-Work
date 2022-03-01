@@ -5,6 +5,7 @@
 
 import "./zoneCard.css";
 
+
 export default function ZoneCard(props) {
   const { zoneInfo, setZones, zones } = props;
 
@@ -17,7 +18,7 @@ export default function ZoneCard(props) {
   };
 
   return (
-    <div className="zoneCardWrapper">
+    <div>
       <h3>Zone Name: {zoneInfo.name}</h3>
       <h3>Color: {zoneInfo.color}</h3>
       <button id="remove" onClick={() => removeZone(zoneInfo.color)}>

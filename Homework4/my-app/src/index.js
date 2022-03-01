@@ -4,9 +4,7 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore, compose } from "redux";
-import addFoodReducer from "./reducers/AddFoodReducer";
-import addZoneReducer from "./reducers/AddZoneReducer";
+import { createStore } from "redux";
 import allReducers from "./reducers/index";
 
 // const composeEnhancers =

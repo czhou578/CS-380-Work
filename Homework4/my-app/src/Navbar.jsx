@@ -15,7 +15,9 @@ export default function Navbar() {
         <Link to={"search-food"}>
           <li>Search Foods</li>
         </Link>
-        <li>Shopping List</li>
+        <Link to={"shoppinglist"}>
+          <li>Shopping List</li>
+        </Link>
       </ul>
     </div>
   );

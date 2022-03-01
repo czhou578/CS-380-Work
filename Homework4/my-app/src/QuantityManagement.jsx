@@ -1,32 +1,27 @@
 import { useDispatch } from "react-redux";
 import { addZoneActionFood } from "./actions";
 
-
 export default function QuantityManagement(props) {
   const { foundFood, registeredZones } = props;
-  const dispatch = useDispatch()
-  let name = foundFood.foodName
-  
+  const dispatch = useDispatch();
+  let name = foundFood.foodName;
+
   const addQuantityHandler = () => {
-    let inputs = document.getElementsByClassName("quantityInput")
+    let inputs = document.getElementsByClassName("quantityInput");
     console.log(inputs);
 
-    
     for (let i = 0; i < registeredZones.length; i++) {
-      console.log('enetered value: ' + inputs[i].valueAsNumber);
+      console.log("enetered value: " + inputs[i].valueAsNumber);
       console.log(i);
       let newZoneObj = {
         [name]: inputs[i].valueAsNumber,
-        index: i
-      }
+        index: i,
+      };
 
-      console.log(newZoneObj);
-      
-      dispatch(addZoneActionFood(newZoneObj))
-      
+      dispatch(addZoneActionFood(newZoneObj));
     }
     // console.log('num of zones: ' + registeredZones.length);
-  }
+  };
 
   return (
     <div className="QMwrapper">
@@ -37,7 +32,7 @@ export default function QuantityManagement(props) {
       <div>
         {registeredZones
           ? registeredZones.map((element, key) => {
-            console.log(element);
+              console.log(element);
               if (Object.keys(element).length === 2) {
                 return (
                   <div key={key}>

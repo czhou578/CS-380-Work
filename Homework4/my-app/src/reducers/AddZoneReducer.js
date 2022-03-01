@@ -11,19 +11,19 @@ const addZoneReducer = (state = noZoneState, action) => {
     case "addZoneActionFood":
       let array = state.allZones.map((element, index) => {
         if (index === action.newZoneFood.index) {
-          let key = Object.keys(action.newZoneFood)[0]
-          let value = Object.values(action.newZoneFood)[0]
+          let key = Object.keys(action.newZoneFood)[0];
+          let value = Object.values(action.newZoneFood)[0];
           var tempObject = {
             ...element,
-            [key]: value
-          }
-          return tempObject
+            [key]: value,
+          };
+          return tempObject;
         }
-        return element
-      })
+        return element;
+      });
       return {
         allZones: array,
-      }
+      };
     default:
       return state;
   }
