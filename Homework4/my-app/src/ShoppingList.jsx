@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function ShoppingList(props) {
   const foodArray = useSelector((state) => state.addFoodReducer.allFoodArray);
-  const zones = useSelector((state) => state.addZoneReducer.allZones);
+  const zones = useSelector((state) => state.ZoneReducer.allZones);
   const [foodsToBuy, setFoodsToBuy] = useState([]);
 
   useEffect(() => {

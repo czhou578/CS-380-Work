@@ -64,6 +64,10 @@ export default function QuantityManagement(props) {
               }
             })
           : null}
+          <div>
+            <h4>Unassigned Food</h4>
+            
+          </div>
         <div>
           <button onClick={() => addQuantityHandler()}>Add Quantities</button>
         </div>

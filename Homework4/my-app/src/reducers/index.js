@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import addFoodReducer from "./AddFoodReducer";
-import addZoneReducer from "./AddZoneReducer";
+import ZoneReducer from "./ZoneReducer";
 
 const allReducers = combineReducers({
   addFoodReducer,
-  addZoneReducer,
+  ZoneReducer,
 });
 
 export default allReducers;

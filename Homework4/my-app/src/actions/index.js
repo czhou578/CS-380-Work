@@ -1,20 +1,28 @@
-export const addFoodAction = (food) => {
+export const addFoodAction = (food) => { //add new food
   return {
     type: "addFood",
-    newFood: food,
+    payload: food,
   };
 };
 
-export const addZoneAction = (zone) => {
+export const addZoneAction = (zone) => { //add new zone
   return {
     type: "addZone",
-    newZone: zone,
+    payload: zone,
   };
 };
 
-export const addZoneActionFood = (zoneUpdateFood) => {
+export const addZoneActionFood = (zoneUpdateFood) => { //update food in specific zone
   return {
     type: "addZoneActionFood",
-    newZoneFood: zoneUpdateFood,
+    payload: zoneUpdateFood,
   };
 };
+
+export const deleteZone = (zone) => {
+  return {
+    type: "deleteZone",
+    payload: zone
+  }
+
+}
