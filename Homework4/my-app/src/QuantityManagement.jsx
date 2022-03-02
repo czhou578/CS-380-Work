@@ -11,8 +11,8 @@ export default function QuantityManagement(props) {
     console.log(inputs);
 
     for (let i = 0; i < registeredZones.length; i++) {
-      console.log("enetered value: " + inputs[i].valueAsNumber);
-      console.log(i);
+      // console.log("enetered value: " + inputs[i].valueAsNumber);
+      // console.log(i);
       let newZoneObj = {
         [name]: inputs[i].valueAsNumber,
         index: i,

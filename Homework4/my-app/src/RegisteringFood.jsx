@@ -8,7 +8,7 @@ export default function RegisteringFood(props) {
   const [name, setName] = useState("");
   const [barcode, setBarcode] = useState("");
   const [units, setUnits] = useState("ounces");
-  const [minstock, setMinstock] = useState(0);
+  const [minstock, setMinstock] = useState(null);
   const [error, setError] = useState("");
   const registeredFood = useSelector(
     (state) => state.addFoodReducer.allFoodArray
