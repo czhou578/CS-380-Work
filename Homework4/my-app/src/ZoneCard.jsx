@@ -5,7 +5,6 @@
 
 import "./zoneCard.css";
 
-
 export default function ZoneCard(props) {
   const { zoneInfo, setZones, zones } = props;
 

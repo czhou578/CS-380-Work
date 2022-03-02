@@ -13,7 +13,6 @@ export default function RegisteringFood(props) {
   const registeredFood = useSelector(
     (state) => state.addFoodReducer.allFoodArray
   );
-  console.log("state: " + registeredFood);
 
   const dispatch = useDispatch();
 
