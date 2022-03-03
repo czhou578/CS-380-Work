@@ -60,7 +60,7 @@ export default function FoodSearch(props) {
         />
       ) : null}
       <div className="unassigned">
-        <h4>Unassigned Food</h4>
+        <h4>Unassigned Food:</h4>
         {unassignedFood.map((element, key) => {
           return <h4 key={key}>{element}</h4>
         })}
