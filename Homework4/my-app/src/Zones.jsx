@@ -3,7 +3,7 @@ import React from "react";
 import ZoneModal from "./ZoneModal";
 import ZoneCard from "./ZoneCard";
 import { useSelector } from "react-redux";
-import { deleteZone } from "./actions";
+import { deleteZone, deleteZoneFood } from "./actions";
 import { useDispatch } from "react-redux";
 
 export default function Zones() {
@@ -12,6 +12,7 @@ export default function Zones() {
   const dispatch = useDispatch();
 
   const removeZone = (zone) => {
+    dispatch(deleteZoneFood(zone))
     dispatch(deleteZone(zone));
   };
 

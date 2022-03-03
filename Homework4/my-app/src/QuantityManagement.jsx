@@ -9,15 +9,17 @@ export default function QuantityManagement(props) {
 
   const addQuantityHandler = () => {
     let inputs = document.getElementsByClassName("quantityInput");
-    console.log(inputs);
+    // console.log(inputs);
 
     for (let i = 0; i < registeredZones.length; i++) {
-      let newZoneObj = {
-        [name]: inputs[i].valueAsNumber,
-        index: i,
-      };
-
-      dispatch(addZoneActionFood(newZoneObj));
+      if (inputs[i].valueAsNumber !== NaN) {
+        let newZoneObj = {
+          [name]: inputs[i].valueAsNumber,
+          index: i,
+        };
+  
+        dispatch(addZoneActionFood(newZoneObj));
+      }
     }
     // console.log('num of zones: ' + registeredZones.length);
   };
@@ -49,7 +51,7 @@ export default function QuantityManagement(props) {
                 );
               } else {
                 return (
-                  <div key={key}>
+                  <div key={key} className="zoneWithFood">
                     <h3>Zone: {element.name}</h3>
                     <h4>Current Amount: {element[name]}</h4>
                     <label>Enter New Amount: </label>

@@ -18,9 +18,17 @@ export const addZoneActionFood = (zoneUpdateFood) => {
   //update food in specific zone
   return {
     type: "addZoneActionFood",
-    payloadde: zoneUpdateFood,
+    payload: zoneUpdateFood,
   };
 };
+
+//removes food from about to be deleted zone from all other zones
+export const deleteZoneFood = (zone) => { 
+  return {
+    type: "deleteFoodFromAllZones",
+    payload: zone
+  }
+}
 
 export const deleteZone = (zone) => {
   return {
