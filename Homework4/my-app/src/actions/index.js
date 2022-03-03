@@ -31,6 +31,7 @@ export const deleteZoneFood = (zone) => {
 };
 
 export const deleteZone = (zone) => {
+  //delete zone
   return {
     type: "deleteZone",
     payload: zone,
@@ -38,6 +39,7 @@ export const deleteZone = (zone) => {
 };
 
 export const addToUnassignedFood = (food) => {
+  //add to unassigned food
   return {
     type: "addToUnassigned",
     payload: food,

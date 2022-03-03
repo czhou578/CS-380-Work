@@ -7,11 +7,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import allReducers from "./reducers/index";
 
-// const composeEnhancers =
 const store = createStore(
   allReducers,
-  // addFoodReducer,
-  // addZoneReducer,
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 );
 

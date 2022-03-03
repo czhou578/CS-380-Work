@@ -28,11 +28,17 @@ export default function Zones() {
       ) : null}
       <div className="currentZoneWrapper">
         <h1>Current Zones</h1>
-        {registeredZones ? registeredZones.map((element, key) => {
-          return (
-            <ZoneCard key={key} zoneInfo={element} deleteHandler={removeZone} />
-          );
-        }) : null}
+        {registeredZones
+          ? registeredZones.map((element, key) => {
+              return (
+                <ZoneCard
+                  key={key}
+                  zoneInfo={element}
+                  deleteHandler={removeZone}
+                />
+              );
+            })
+          : null}
       </div>
     </div>
   );

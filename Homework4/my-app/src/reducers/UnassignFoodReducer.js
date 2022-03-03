@@ -1,6 +1,6 @@
 const unassignState = {
-  unAssignFood: []
-}
+  unAssignFood: [],
+};
 
 const UnassignFoodReducer = (state = unassignState, action) => {
   switch (action.type) {
@@ -8,15 +8,14 @@ const UnassignFoodReducer = (state = unassignState, action) => {
       let unassignedFood = Object.keys(action.payload);
       unassignedFood.pop();
       unassignedFood.pop();
-  
+
       return {
         unAssignFood: unassignedFood,
       };
-  
+
     default:
-      return state
+      return state;
   }
+};
 
-}
-
-export default UnassignFoodReducer
+export default UnassignFoodReducer;

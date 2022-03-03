@@ -31,7 +31,7 @@ const addZoneReducer = (state = noZoneState, action) => {
       keys.pop();
       keys.pop();
 
-      let newFilteredArray
+      let newFilteredArray;
 
       if (state.allZones) {
         newFilteredArray = state.allZones.map((element, index) => {
@@ -40,25 +40,24 @@ const addZoneReducer = (state = noZoneState, action) => {
               delete element[key];
             }
           }
-  
+
           return element;
         });
-
       }
       return {
         allZones: newFilteredArray,
       };
     case "deleteZone":
-      let newArray 
+      let newArray;
 
       if (state.allZones) {
         newArray = state.allZones.filter(
           (element) => element.color !== action.payload.color
-        )
+        );
       }
 
       return {
-        allZones: newArray
+        allZones: newArray,
       };
     default:
       return state;

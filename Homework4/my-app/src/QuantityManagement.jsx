@@ -33,7 +33,6 @@ export default function QuantityManagement(props) {
       <div>
         {registeredZones
           ? registeredZones.map((element, key) => {
-              console.log(element);
               if (Object.keys(element).length === 2) {
                 return (
                   <div key={key} className="zoneWithFood">

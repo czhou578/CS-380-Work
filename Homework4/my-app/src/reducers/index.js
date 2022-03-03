@@ -6,7 +6,7 @@ import UnassignFoodReducer from "./UnassignFoodReducer";
 const allReducers = combineReducers({
   addFoodReducer,
   ZoneReducer,
-  UnassignFoodReducer
+  UnassignFoodReducer,
 });
 
 export default allReducers;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./zonemodal.css";
 import { addZoneAction } from "./actions/index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function ZoneModal(props) {
-  const { setZones, setOpenZoneModal, zones } = props;
+  const { setOpenZoneModal, zones } = props;
   const [zoneName, setZoneName] = useState("");
   const [colorSelect, setColorSelect] = useState("orange");
   const [error, setError] = useState("");
@@ -26,7 +26,6 @@ export default function ZoneModal(props) {
     }
 
     dispatch(addZoneAction(resultObj));
-    console.log("hello");
   };
 
   return (
