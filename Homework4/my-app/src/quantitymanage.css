@@ -1,0 +1,53 @@
+.QMwrapper {
+  margin-top: 30px;
+  border: 2px solid darkred;
+  display: inline-block;
+  padding: 30px;
+  margin-left: -130px;
+}
+
+.QMwrapper > h2, .QMwrapper > h3 {
+  margin-bottom: 20px;
+}
+
+.QMwrapper > h3 {
+  font-size: 20px;
+}
+
+.zoneWithFood {
+  margin-bottom: 20px;
+  border: 2px solid darkgreen;
+  display: inline-block;
+  padding: 30px;
+}
+
+.zoneWithFood > h3 {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.zoneWithFood > h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.zoneWithFood > label {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.zoneWithFood > input {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.addQuantityButton > button {
+  padding: 0.25em 0.75em;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.unassigned > h4 {
+  font-size: 20px;
+}

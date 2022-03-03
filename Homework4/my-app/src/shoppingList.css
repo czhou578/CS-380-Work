@@ -1,0 +1,11 @@
+.list {
+  margin-left: 40%;
+  margin-top: 2%;
+  font-size: 25px;
+  display: inline-block;
+}
+
+.foodResult {
+  margin-left: 30%;
+  margin-top: 10px;
+}

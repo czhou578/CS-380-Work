@@ -1,6 +1,23 @@
 .registerWrapper {
   margin-left: 40%;
   margin-top: 5%;
+  border: 2px solid green;
+  display: inline-block;
+  padding: 30px;
+}
+
+.registerWrapper > h1 {
+  margin-left: 20px;
+}
+
+.inputs > input,
+.inputs > select {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.inputs > label {
+  color: darkblue;
 }
 
 .registerWrapper > div {
@@ -11,6 +28,21 @@
   margin-right: 10px;
 }
 
+.buttonWrapper {
+  margin-left: 20px;
+}
+
 .buttonWrapper > button {
   margin-right: 10px;
+  padding: 0.25rem 0.75rem;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#message {
+  margin-left: 30px;
+}
+
+#message > h3 {
+  font-size: 25px;
 }

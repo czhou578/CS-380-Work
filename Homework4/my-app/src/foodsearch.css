@@ -1,0 +1,51 @@
+.foodSearchContainer {
+  margin-left: 43%;
+  margin-top: 3%;
+}
+
+.foodBarcode {
+  margin-top: 20px;
+  margin-left: -180px;
+}
+
+.foodBarcode > label {
+  margin-right: 20px;
+  font-size: 25px;
+}
+
+.foodBarcode > input {
+  font-size: 24px;
+}
+
+.foodBarcode > button {
+  padding: 0.25rem 0.75rem;
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.noResults {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.noResults > h3 {
+  font-size: 30px;
+}
+
+.foodFound {
+  margin-top: 20px;
+  margin-left: 50px;
+  border: 2px solid darkgreen;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 30px;
+}
+
+.foodFound > button {
+  margin-top: 15px;
+  padding: 0.25rem 0.75rem;
+  font-size: 20px;
+  cursor: pointer;
+}
+

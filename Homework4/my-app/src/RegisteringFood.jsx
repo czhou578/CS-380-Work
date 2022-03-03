@@ -4,7 +4,7 @@ import "./registerFood.css";
 import { addFoodAction } from "./actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function RegisteringFood(props) {
+export default function RegisteringFood() {
   const [name, setName] = useState("");
   const [barcode, setBarcode] = useState("");
   const [units, setUnits] = useState("ounces");
@@ -42,7 +42,7 @@ export default function RegisteringFood(props) {
   return (
     <div className="registerWrapper">
       <h1>Register Food</h1>
-      <div>
+      <div className="inputs">
         <label htmlFor="">Food Name</label>
         <input
           type="text"
@@ -50,7 +50,7 @@ export default function RegisteringFood(props) {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
-      <div>
+      <div className="inputs">
         <label htmlFor="">Food Barcode</label>
         <input
           type="number"
@@ -60,7 +60,7 @@ export default function RegisteringFood(props) {
           onChange={(e) => setBarcode(e.target.value)}
         />
       </div>
-      <div>
+      <div className="inputs">
         <label htmlFor="">Units</label>
         <select
           name="units"
@@ -74,7 +74,7 @@ export default function RegisteringFood(props) {
           <option value="each">each</option>
         </select>
       </div>
-      <div>
+      <div className="inputs">
         <label htmlFor="">Min. stock</label>
         <input
           type="number"
@@ -88,7 +88,7 @@ export default function RegisteringFood(props) {
         <button>Cancel</button>
       </div>
 
-      {setError !== "" ? <div> {error} </div> : null}
+      {setError !== "" ? <div id="message"> <h3> {error} </h3> </div> : null}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import QuantityManagement from "./QuantityManagement";
+import "./foodsearch.css";
 
 //link manage button to respective links
 
@@ -26,10 +27,10 @@ export default function FoodSearch(props) {
   };
 
   return (
-    <div>
+    <div className="foodSearchContainer">
       <h1>Search for Foods</h1>
-      <div>
-        <label htmlFor="">Enter Food Barcode</label>
+      <div className="foodBarcode">
+        <label htmlFor="">Enter Food Barcode:</label>
         <input
           type="number"
           placeholder="Search"
@@ -39,25 +40,23 @@ export default function FoodSearch(props) {
       </div>
       <div>
         {foundFood ? (
-          <div>
+          <div className="foodFound">
             <h2>Food Name: {foundFood.foodName}</h2>
             <button onClick={() => setManageOpen(true)}>Manage</button>
           </div>
         ) : null}
         {error ? (
-          <div>
+          <div className="noResults">
             <h3>No results found</h3>
           </div>
         ) : null}
       </div>
 
-      {setManageOpen && foundFood ? (
-        <div>
-          <QuantityManagement
-            foundFood={foundFood}
-            registeredZones={registeredZones}
-          />
-        </div>
+      {manageOpen && foundFood ? (
+        <QuantityManagement
+          foundFood={foundFood}
+          registeredZones={registeredZones}
+        />
       ) : null}
     </div>
   );
