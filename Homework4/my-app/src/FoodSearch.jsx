@@ -13,6 +13,7 @@ export default function FoodSearch(props) {
   const registeredFood = useSelector(
     (state) => state.addFoodReducer.allFoodArray
   );
+  const unassignedFood = useSelector((state) => state.UnassignFoodReducer.unAssignFood)
   const registeredZones = useSelector((state) => state.ZoneReducer.allZones);
 
   const findFood = () => {
@@ -58,6 +59,12 @@ export default function FoodSearch(props) {
           registeredZones={registeredZones}
         />
       ) : null}
+      <div className="unassigned">
+        <h4>Unassigned Food</h4>
+        {unassignedFood.map((element, key) => {
+          return <h4 key={key}>{element}</h4>
+        })}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addZoneActionFood } from "./actions";
-import './quantitymanage.css'
+import "./quantitymanage.css";
 
 export default function QuantityManagement(props) {
   const { foundFood, registeredZones } = props;
@@ -9,19 +9,17 @@ export default function QuantityManagement(props) {
 
   const addQuantityHandler = () => {
     let inputs = document.getElementsByClassName("quantityInput");
-    // console.log(inputs);
 
     for (let i = 0; i < registeredZones.length; i++) {
-      if (inputs[i].valueAsNumber !== NaN) {
+      if (!isNaN(inputs[i].valueAsNumber)) {
         let newZoneObj = {
           [name]: inputs[i].valueAsNumber,
           index: i,
         };
-  
+
         dispatch(addZoneActionFood(newZoneObj));
       }
     }
-    // console.log('num of zones: ' + registeredZones.length);
   };
 
   return (
@@ -29,7 +27,9 @@ export default function QuantityManagement(props) {
       <h2>
         Quantity Management for {foundFood.foodName} ({foundFood.foodUnits}){" "}
       </h2>
-      <h3>Note: Number selection will contain current amount of food by default.</h3>
+      <h3>
+        Note: Number selection will contain current amount of food by default.
+      </h3>
       <div>
         {registeredZones
           ? registeredZones.map((element, key) => {
@@ -45,7 +45,6 @@ export default function QuantityManagement(props) {
                       min={1}
                       max={40}
                       className="quantityInput"
-                      // onChange={(e) => setMinstock(e.target.value)}
                     />
                   </div>
                 );
@@ -60,16 +59,13 @@ export default function QuantityManagement(props) {
                       min={1}
                       max={40}
                       className="quantityInput"
-                      // onChange={(e) => setMinstock(e.target.value)}
                     />
                   </div>
                 );
               }
             })
           : null}
-        <div className="unassigned">
-          <h4>Unassigned Food</h4>
-        </div>
+
         <div className="addQuantityButton">
           <button onClick={() => addQuantityHandler()}>Add Quantities</button>
         </div>

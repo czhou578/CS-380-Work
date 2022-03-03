@@ -88,7 +88,12 @@ export default function RegisteringFood() {
         <button>Cancel</button>
       </div>
 
-      {setError !== "" ? <div id="message"> <h3> {error} </h3> </div> : null}
+      {setError !== "" ? (
+        <div id="message">
+          {" "}
+          <h3> {error} </h3>{" "}
+        </div>
+      ) : null}
     </div>
   );
 }

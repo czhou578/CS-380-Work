@@ -3,7 +3,7 @@ import React from "react";
 import ZoneModal from "./ZoneModal";
 import ZoneCard from "./ZoneCard";
 import { useSelector } from "react-redux";
-import { deleteZone, deleteZoneFood } from "./actions";
+import { deleteZone, deleteZoneFood, addToUnassignedFood } from "./actions";
 import { useDispatch } from "react-redux";
 
 export default function Zones() {
@@ -12,7 +12,8 @@ export default function Zones() {
   const dispatch = useDispatch();
 
   const removeZone = (zone) => {
-    dispatch(deleteZoneFood(zone))
+    dispatch(addToUnassignedFood(zone));
+    dispatch(deleteZoneFood(zone));
     dispatch(deleteZone(zone));
   };
 
@@ -27,11 +28,11 @@ export default function Zones() {
       ) : null}
       <div className="currentZoneWrapper">
         <h1>Current Zones</h1>
-        {registeredZones.map((element, key) => {
+        {registeredZones ? registeredZones.map((element, key) => {
           return (
             <ZoneCard key={key} zoneInfo={element} deleteHandler={removeZone} />
           );
-        })}
+        }) : null}
       </div>
     </div>
   );

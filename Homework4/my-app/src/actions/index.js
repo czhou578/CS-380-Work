@@ -23,16 +23,23 @@ export const addZoneActionFood = (zoneUpdateFood) => {
 };
 
 //removes food from about to be deleted zone from all other zones
-export const deleteZoneFood = (zone) => { 
+export const deleteZoneFood = (zone) => {
   return {
     type: "deleteFoodFromAllZones",
-    payload: zone
-  }
-}
+    payload: zone,
+  };
+};
 
 export const deleteZone = (zone) => {
   return {
     type: "deleteZone",
     payload: zone,
+  };
+};
+
+export const addToUnassignedFood = (food) => {
+  return {
+    type: "addToUnassigned",
+    payload: food,
   };
 };

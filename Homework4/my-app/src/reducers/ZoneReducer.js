@@ -25,30 +25,40 @@ const addZoneReducer = (state = noZoneState, action) => {
       return {
         allZones: array,
       };
+
     case "deleteFoodFromAllZones":
-      let keys = Object.keys(action.payload)
-      keys.pop()
-      keys.pop()
+      let keys = Object.keys(action.payload);
+      keys.pop();
+      keys.pop();
 
-      let newFilteredArray = state.allZones.map((element, index) => {
-        for (const key of keys) {
-          if (element[key]) {
-            delete element[key]
+      let newFilteredArray
+
+      if (state.allZones) {
+        newFilteredArray = state.allZones.map((element, index) => {
+          for (const key of keys) {
+            if (element[key]) {
+              delete element[key];
+            }
           }
-        }
+  
+          return element;
+        });
 
-        return element
-      })
-
-      return {
-        allZones: newFilteredArray
       }
+      return {
+        allZones: newFilteredArray,
+      };
     case "deleteZone":
+      let newArray 
+
+      if (state.allZones) {
+        newArray = state.allZones.filter(
+          (element) => element.color !== action.payload.color
+        )
+      }
 
       return {
-        allZones: state.allZones.filter(
-          (element) => element.color !== action.payload.color
-        ),
+        allZones: newArray
       };
     default:
       return state;
