@@ -27,7 +27,6 @@ export default function ZoneModal(props) {
 
     dispatch(addZoneAction(resultObj));
     console.log("hello");
-    // setZones([...zones, resultObj]);
   };
 
   return (
@@ -57,7 +56,7 @@ export default function ZoneModal(props) {
         <button onClick={() => submitZoneInfo()}>Add Zone</button>
         <button onClick={() => setOpenZoneModal(false)}>Cancel</button>
       </div>
-      {setError !== "" ? <p>{error}</p> : null}
+      {setError !== "" ? <p id="errorMsg">{error}</p> : null}
     </div>
   );
 }

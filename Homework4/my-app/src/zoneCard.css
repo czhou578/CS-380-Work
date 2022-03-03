@@ -1,9 +1,17 @@
 .zoneCardWrapper {
-  padding: 5px;
+  padding: 45px;
   border: 2px solid black;
   margin-bottom: 10px;
 }
 
+.zoneCardWrapper > h3 {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
 .zoneCardWrapper > #remove {
-  margin-top: 10px;
+  margin-top: 20px;
+  padding: 0.25em 0.75em;
+  cursor: pointer;
+  font-size: 20px;
 }

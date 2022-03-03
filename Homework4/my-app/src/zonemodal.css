@@ -1,18 +1,47 @@
 .selectionWrapper {
-  margin-left: 50%;
-  margin-top: 6%;
+  margin-left: 44%;
+  margin-top: 2%;
   border: 2px solid red;
   background-color: lightgreen;
 }
 
 .selectionWrapper > h2 {
   margin-bottom: 20px;
+  margin-left: 40%;
+  margin-top: 5px;
+}
+
+.inputs {
+  margin-left: 20px;
 }
 
 .inputs > label {
   margin-right: 10px;
+  font-size: 25px;
+}
+
+.inputs > input:first-of-type {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+#colorSelect {
+  font-size: 20px;
 }
 
 .addCancel {
   margin-bottom: 10px;
+}
+
+.addCancel > button {
+  padding: 0.25em 0.75em;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#errorMsg {
+  margin-left: 7%;
+  margin-bottom: 20px;
+  font-size: 25px;
+  margin-top: 10px;
 }

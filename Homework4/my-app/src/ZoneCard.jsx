@@ -9,9 +9,9 @@ export default function ZoneCard(props) {
   const { zoneInfo, deleteHandler } = props;
 
   return (
-    <div>
-      <h3>Zone Name: {zoneInfo.name}</h3>
-      <h3>Color: {zoneInfo.color}</h3>
+    <div className="zoneCardWrapper">
+      <h3>Zone Name: <u>{zoneInfo.name}</u></h3>
+      <h3>Color: <u>{zoneInfo.color}</u></h3>
       <button id="remove" onClick={() => deleteHandler(zoneInfo)}>
         Remove
       </button>

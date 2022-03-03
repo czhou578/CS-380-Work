@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
 import QuantityManagement from "./QuantityManagement";
 
 //link manage button to respective links
@@ -13,7 +12,7 @@ export default function FoodSearch(props) {
   const registeredFood = useSelector(
     (state) => state.addFoodReducer.allFoodArray
   );
-  const registeredZones = useSelector((state) => state.addZoneReducer.allZones);
+  const registeredZones = useSelector((state) => state.ZoneReducer.allZones);
 
   const findFood = () => {
     for (const foodObj of registeredFood) {
