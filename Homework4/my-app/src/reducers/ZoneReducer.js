@@ -24,10 +24,12 @@ const addZoneReducer = (state = noZoneState, action) => {
       return {
         allZones: array,
       };
-      case "deleteZone":
-        return {
-          allZones: state.allZones.filter(element => element.color !== action.payload.color)
-        }
+    case "deleteZone":
+      return {
+        allZones: state.allZones.filter(
+          (element) => element.color !== action.payload.color
+        ),
+      };
     default:
       return state;
   }
