@@ -15,7 +15,7 @@ export const addZoneAction = (zone) => { //add new zone
 export const addZoneActionFood = (zoneUpdateFood) => { //update food in specific zone
   return {
     type: "addZoneActionFood",
-    payload: zoneUpdateFood,
+    payloadde: zoneUpdateFood,
   };
 };
 
