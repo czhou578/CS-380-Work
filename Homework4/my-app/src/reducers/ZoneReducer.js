@@ -9,7 +9,6 @@ const addZoneReducer = (state = noZoneState, action) => {
         allZones: [...state.allZones, action.payload],
       };
     case "addZoneActionFood":
-      console.log(action.payload);
       let array = state.allZones.map((element, index) => {
         if (index === action.payload.index) {
           let key = Object.keys(action.payload)[0];

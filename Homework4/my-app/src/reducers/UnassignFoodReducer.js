@@ -15,7 +15,6 @@ const UnassignFoodReducer = (state = unassignState, action) => {
 
     case "deleteFromUnassigned":
       let name = Object.keys(action.payload)[0];
-      console.log(name);
 
       let newArrayState = state.unAssignFood.filter(
         (element) => element !== name
