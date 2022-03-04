@@ -27,6 +27,10 @@ export default function FoodSearch(props) {
     }
 
     setError(true);
+
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
   };
 
   return (

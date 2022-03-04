@@ -13,6 +13,18 @@ const UnassignFoodReducer = (state = unassignState, action) => {
         unAssignFood: unassignedFood,
       };
 
+    case "deleteFromUnassigned":
+      let name = Object.keys(action.payload)[0];
+      console.log(name);
+
+      let newArrayState = state.unAssignFood.filter(
+        (element) => element !== name
+      );
+
+      return {
+        unAssignFood: newArrayState,
+      };
+
     default:
       return state;
   }

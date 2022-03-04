@@ -45,3 +45,11 @@ export const addToUnassignedFood = (food) => {
     payload: food,
   };
 };
+
+export const deleteFromUnassignedFood = (food) => {
+  //add to unassigned food
+  return {
+    type: "deleteFromUnassigned",
+    payload: food,
+  };
+};

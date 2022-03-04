@@ -25,6 +25,10 @@ export default function ZoneModal(props) {
       }
     }
 
+    setTimeout(() => {
+      setError("");
+    }, 3000);
+
     dispatch(addZoneAction(resultObj));
   };
 

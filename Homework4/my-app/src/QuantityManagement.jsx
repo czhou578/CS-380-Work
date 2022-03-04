@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addZoneActionFood } from "./actions";
+import { addZoneActionFood, deleteFromUnassignedFood } from "./actions";
 import "./quantitymanage.css";
 
 export default function QuantityManagement(props) {
@@ -18,6 +18,7 @@ export default function QuantityManagement(props) {
         };
 
         dispatch(addZoneActionFood(newZoneObj));
+        dispatch(deleteFromUnassignedFood(newZoneObj));
       }
     }
   };
