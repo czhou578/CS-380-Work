@@ -1,14 +1,8 @@
 const express = require('express')
-var mysql = require('mysql');
 
 const app = express()
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "colizu",
-  password: "issaquah",
-  database: "homework_5"
-});
+
 
 con.connect(function(err) {
   if (err) throw err;
@@ -19,5 +13,11 @@ con.connect(function(err) {
   })
 
 });
+
+app.get()
+
+const userRouter = require('./routes/users')
+
+app.use('/users', userRouter)
 
 app.listen(3000)
