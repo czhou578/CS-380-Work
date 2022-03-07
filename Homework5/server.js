@@ -1,8 +1,9 @@
 const express = require('express')
-const userRouter = require('./routes/users')
-
 const app = express()
+const userRouter = require('./routes/users')
+const con = require('./database')
 
+app.use(express.json())
 
 
 con.connect(function(err) {
