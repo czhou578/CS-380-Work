@@ -27,7 +27,7 @@ router.get('/get-group', (req, res) => {
   }
 })
 
-router.post('/new-group', (req, res) => {
+router.post('/new-group', (req, res) => { //need to add first participant
   const { creatorId, groupId, groupName } = req.body
   
   if (creatorId && groupId && groupName) {
