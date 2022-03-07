@@ -1,10 +1,9 @@
-const e = require('express')
 const express = require('express')
 const database = require('../database')
 
 const router = express.Router()
 
-router.post('/postNewUsers', (req, res) => {
+router.post('/add-users', (req, res) => {
   const {id, name, joinedAt, active } = req.body
 
   if (id && name && joinedAt && active) {
@@ -21,7 +20,7 @@ router.post('/postNewUsers', (req, res) => {
 
 })
 
-router.get('/getUserInfo', (req, res) => {
+router.get('/get-user-info', (req, res) => {
   const { id } = req.body
 
   if (id) {
@@ -36,10 +35,10 @@ router.get('/getUserInfo', (req, res) => {
   }
 })
 
-router.put('/updateUserInterest', (req, res) => {
+router.put('/update-user-interest', (req, res) => {
   const {id, interest} = req.body
 
-  if (interest) {
+  if (id && interest) {
     let sql = `UPDATE interests SET interests = ? WHERE user_id = ?`
     database.query(sql, [interest, id], function (error, result) {
       if (error) throw error
@@ -51,10 +50,10 @@ router.put('/updateUserInterest', (req, res) => {
   }
 })
 
-router.put('/updateActiveStatus', (req, res) => {
+router.put('/update-active-status', (req, res) => {
   const { id, active } = req.body
 
-  if (active) {
+  if (id && active) {
     let sql = `UPDATE user SET user_active = ? WHERE user_id = ?`
     database.query(sql, [active, id], function (error, result) {
       if (error) throw error
