@@ -4,6 +4,7 @@ const app = express()
 const userRouter = require('./routes/users')
 const groupRouter = require('./routes/groups')
 const participantRouter = require('./routes/participants')
+const messageRouter = require('./routes/messages')
 
 app.use(express.json())
 
@@ -17,5 +18,6 @@ con.connect(function(err) {
 app.use('/users', userRouter)
 app.use('/groups', groupRouter)
 app.use('/participant', participantRouter)
+app.use('/msg', messageRouter)
 
 app.listen(3000)
