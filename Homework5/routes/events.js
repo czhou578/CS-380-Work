@@ -13,11 +13,11 @@ router.get('/get-events', (req, res) => {
 })
 
 router.post('/create-event', (req, res) => {
-  const { createdBy, event_name, startAt, endAt, group_id } = req.body
+  const { event_id, createdBy, group_id, event_name, startAt, endAt } = req.body
 
-  if (createdBy && event_name && startAt && endAt && group_id) {
-    let sql = `INSERT INTO events (createdBy, event_name, startAt, endAt, group_id) 
-      VALUES (${createdBy}, '${event_name}', '${startAt}', '${endAt}', ${group_id})`
+  if (event_id && createdBy && event_name && startAt && endAt && group_id) {
+    let sql = `INSERT INTO events (event_id, createdBy, group_id, event_name, startAt, endAt) 
+      VALUES (${event_id}, ${createdBy}, ${group_id}, '${event_name}', '${startAt}', '${endAt}')`
 
     database.query(sql, function (error, result) {
       if (error) throw error
@@ -30,13 +30,49 @@ router.post('/create-event', (req, res) => {
 })
 
 router.get('/details-event', (req, res) => {
-  // const { }
+  const { event_id } = req.body
+
+  if (event_id) {
+    let sql = `SELECT * FROM events WHERE event_id = ${event_id}`
+    database.query(sql, function (error, result) {
+      if (error) throw error
+
+      res.send(result)
+    })
+  } else {
+    res.send('Event id invalid.')
+  }
+
 })
 
 router.put('/modify-event', (req, res) => {
-  const { createdBy, event_name, startAt, endAt, group_id} = req.body
+  const { event_id, createdBy, group_id, event_name, startAt, endAt} = req.body
 
-  
+  if (event_name && group_id && createdBy && startAt && endAt && event_id) {
+    let sql = `UPDATE events SET createdBy = ?, group_id = ?, event_name: ?, startAt = ?, endAt = ? WHERE event_id = ?`
+    database.query(sql, [createdBy, group_id, event_name, startAt, endAt, event_id], function (error, result) {
+      if (error) throw error
+
+      res.send("updated!")
+    })
+  } else {
+    res.send('failure')
+  }
+})
+
+router.delete('/delete-event', (req, res) => {
+  const {event_id} = req.body
+
+  if (event_id) {
+    let sql = `DELETE FROM events WHERE event_id = ${event_id}`
+    database.query(sql, function (error, result) {
+      if (error) throw error
+
+      res.send('Deleted event!')
+    })
+  } else {
+    res.send('invalid parameters')
+  }
 })
 
 module.exports = router
