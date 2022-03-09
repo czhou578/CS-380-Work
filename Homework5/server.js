@@ -5,6 +5,7 @@ const userRouter = require('./routes/users')
 const groupRouter = require('./routes/groups')
 const participantRouter = require('./routes/participants')
 const messageRouter = require('./routes/messages')
+const eventRouter = require('./routes/events')
 
 app.use(express.json())
 
@@ -19,5 +20,6 @@ app.use('/users', userRouter)
 app.use('/groups', groupRouter)
 app.use('/participant', participantRouter)
 app.use('/msg', messageRouter)
+app.use('/events', eventRouter)
 
 app.listen(3000)
