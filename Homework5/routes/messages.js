@@ -4,7 +4,9 @@ const database = require('../database')
 const router = express.Router()
 
 router.get('/get-msg', (req, res) => {
-  let sql = `SELECT * FROM messages`
+  const { groupid } = req.body
+
+  let sql = `SELECT * FROM messages WHERE group_id = ${groupid}`
   database.query(sql, function (error, result) {
     if (error) throw error
 
@@ -31,7 +33,7 @@ router.put('/change-msg', (req, res) => {
   const { message, msgid } = req.body
 
   if (message && msgid) {
-    let sql = `UPDATE messages SET message = ? WHERE mesgid = ?`
+    let sql = `UPDATE messages SET contents = ? WHERE msg_id = ?`
     database.query(sql, [message, msgid], function (error, result) {
       if (error) throw error
 

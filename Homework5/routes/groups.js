@@ -31,7 +31,8 @@ router.post('/new-group', (req, res) => { //need to add first participant
   const { creatorId, groupId, groupName } = req.body
   
   if (creatorId && groupId && groupName) {
-    let sql = `INSERT INTO user_groups (id, name) VALUES (${groupId}, '${groupName}')`
+    let insertPartic = `INSERT INTO participants (group_id, participant_id) VALUES (${groupId}, ${creatorId})`
+    let sql = `INSERT INTO user_groups (id, name) VALUES (${groupId}, '${groupName}'); ${insertPartic}`
     database.query(sql, function (error, result) {
       if (error) throw error
 

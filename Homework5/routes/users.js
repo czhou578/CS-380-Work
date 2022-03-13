@@ -4,10 +4,11 @@ const database = require('../database')
 const router = express.Router()
 
 router.post('/add-users', (req, res) => {
-  const {id, name, joinedAt, active } = req.body
+  const {id, name, joinedAt, active, interests } = req.body
 
-  if (id && name && joinedAt && active) {
-    let sql = `INSERT INTO user (user_id, user_name, joined_at, user_active) VALUES (${id}, '${name}', '${joinedAt}', ${active})`
+  if (id && name && joinedAt && active && interests) {
+    let createInterest = `INSERT INTO interests(user_id, interests) VALUES (${id}, '${interests}')`
+    let sql = `INSERT INTO user (user_id, user_name, joined_at, user_active) VALUES (${id}, '${name}', '${joinedAt}', ${active}); ${createInterest}`
     database.query(sql, function(error, result) {
       if (error) throw error
   

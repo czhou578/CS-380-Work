@@ -4,7 +4,9 @@ const database = require('../database')
 const router = express.Router()
 
 router.get('/get-events', (req, res) => {
-  let sql = `SELECT * FROM events`
+  const { groupid } = req.body
+
+  let sql = `SELECT * FROM events WHERE group_id = ${groupid}`
   database.query(sql, function (error, result) {
     if (error) throw error
 
@@ -46,11 +48,11 @@ router.get('/details-event', (req, res) => {
 })
 
 router.put('/modify-event', (req, res) => {
-  const { event_id, createdBy, group_id, event_name, startAt, endAt} = req.body
+  const { event_id, group_id, event_name, startAt, endAt} = req.body
 
-  if (event_name && group_id && createdBy && startAt && endAt && event_id) {
-    let sql = `UPDATE events SET createdBy = ?, group_id = ?, event_name: ?, startAt = ?, endAt = ? WHERE event_id = ?`
-    database.query(sql, [createdBy, group_id, event_name, startAt, endAt, event_id], function (error, result) {
+  if (event_name && group_id && startAt && endAt && event_id) {
+    let sql = `UPDATE events SET group_id = ?, event_name = ?, startAt = ?, endAt = ? WHERE event_id = ?`
+    database.query(sql, [group_id, event_name, startAt, endAt, event_id], function (error, result) {
       if (error) throw error
 
       res.send("updated!")
