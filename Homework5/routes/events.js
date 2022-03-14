@@ -1,80 +1,83 @@
-const express = require('express')
-const database = require('../database')
+const express = require("express");
+const database = require("../database");
+const router = express.Router();
 
-const router = express.Router()
+router.get("/get-events", (req, res) => {
+  const { groupid } = req.body;
 
-router.get('/get-events', (req, res) => {
-  const { groupid } = req.body
-
-  let sql = `SELECT * FROM events WHERE group_id = ${groupid}`
+  let sql = `SELECT * FROM events WHERE group_id = ${groupid}`;
   database.query(sql, function (error, result) {
-    if (error) throw error
+    if (error) throw error;
 
-    res.send(result)
-  })
-})
+    res.send(result);
+  });
+});
 
-router.post('/create-event', (req, res) => {
-  const { event_id, createdBy, group_id, event_name, startAt, endAt } = req.body
+router.post("/create-event", (req, res) => {
+  const { event_id, createdBy, group_id, event_name, startAt, endAt } =
+    req.body;
 
   if (event_id && createdBy && event_name && startAt && endAt && group_id) {
     let sql = `INSERT INTO events (event_id, createdBy, group_id, event_name, startAt, endAt) 
-      VALUES (${event_id}, ${createdBy}, ${group_id}, '${event_name}', '${startAt}', '${endAt}')`
+      VALUES (${event_id}, ${createdBy}, ${group_id}, '${event_name}', '${startAt}', '${endAt}')`;
 
     database.query(sql, function (error, result) {
-      if (error) throw error
+      if (error) throw error;
 
-      res.send('Created Event!')
-    })
+      res.send("Created Event!");
+    });
   } else {
-    res.send('Invalid Input. Try Again')
+    res.send("Invalid Input. Try Again");
   }
-})
+});
 
-router.get('/details-event', (req, res) => {
-  const { event_id } = req.body
+router.get("/details-event", (req, res) => {
+  const { event_id } = req.body;
 
   if (event_id) {
-    let sql = `SELECT * FROM events WHERE event_id = ${event_id}`
+    let sql = `SELECT * FROM events WHERE event_id = ${event_id}`;
     database.query(sql, function (error, result) {
-      if (error) throw error
+      if (error) throw error;
 
-      res.send(result)
-    })
+      res.send(result);
+    });
   } else {
-    res.send('Event id invalid.')
+    res.send("Event id invalid.");
   }
+});
 
-})
-
-router.put('/modify-event', (req, res) => {
-  const { event_id, group_id, event_name, startAt, endAt} = req.body
+router.put("/modify-event", (req, res) => {
+  const { event_id, group_id, event_name, startAt, endAt } = req.body;
 
   if (event_name && group_id && startAt && endAt && event_id) {
-    let sql = `UPDATE events SET group_id = ?, event_name = ?, startAt = ?, endAt = ? WHERE event_id = ?`
-    database.query(sql, [group_id, event_name, startAt, endAt, event_id], function (error, result) {
-      if (error) throw error
+    let sql = `UPDATE events SET group_id = ?, event_name = ?, startAt = ?, endAt = ? WHERE event_id = ?`;
+    database.query(
+      sql,
+      [group_id, event_name, startAt, endAt, event_id],
+      function (error, result) {
+        if (error) throw error;
 
-      res.send("updated!")
-    })
+        res.send("updated!");
+      }
+    );
   } else {
-    res.send('failure')
+    res.send("failure");
   }
-})
+});
 
-router.delete('/delete-event', (req, res) => {
-  const {event_id} = req.body
+router.delete("/delete-event", (req, res) => {
+  const { event_id } = req.body;
 
   if (event_id) {
-    let sql = `DELETE FROM events WHERE event_id = ${event_id}`
+    let sql = `DELETE FROM events WHERE event_id = ${event_id}`;
     database.query(sql, function (error, result) {
-      if (error) throw error
+      if (error) throw error;
 
-      res.send('Deleted event!')
-    })
+      res.send("Deleted event!");
+    });
   } else {
-    res.send('invalid parameters')
+    res.send("invalid parameters");
   }
-})
+});
 
-module.exports = router
+module.exports = router;

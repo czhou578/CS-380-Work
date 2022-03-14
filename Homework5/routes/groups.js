@@ -1,46 +1,46 @@
-const express = require('express')
-const database = require('../database')
+const express = require("express");
+const database = require("../database");
+const router = express.Router();
 
-const router = express.Router()
-
-router.get('/list-groups', (req, res) => {
-  let sql = `SELECT * FROM user_groups`
+router.get("/list-groups", (req, res) => {
+  let sql = `SELECT * FROM user_groups`;
   database.query(sql, function (error, result) {
-    if (error) throw error
+    if (error) throw error;
 
-    res.send(result)
-  })
-})
+    res.send(result);
+  });
+});
 
-router.get('/get-group', (req, res) => {
-  const { id } = req.body
+router.get("/get-group", (req, res) => {
+  const { id } = req.body;
 
   if (id) {
-    let sql = `SELECT * FROM user_groups WHERE id = ${id}`
+    let sql = `SELECT * FROM user_groups WHERE id = ${id}`;
     database.query(sql, function (error, result) {
-      if (error) throw error
-  
-      res.send(result)
-    })
-  } else {
-    res.send('unable to retrieve group, try again')
-  }
-})
+      if (error) throw error;
 
-router.post('/new-group', (req, res) => { //need to add first participant
-  const { creatorId, groupId, groupName } = req.body
-  
+      res.send(result);
+    });
+  } else {
+    res.send("unable to retrieve group, try again");
+  }
+});
+
+router.post("/new-group", (req, res) => {
+  //need to add first participant
+  const { creatorId, groupId, groupName } = req.body;
+
   if (creatorId && groupId && groupName) {
-    let insertPartic = `INSERT INTO participants (group_id, participant_id) VALUES (${groupId}, ${creatorId})`
-    let sql = `INSERT INTO user_groups (id, name) VALUES (${groupId}, '${groupName}'); ${insertPartic}`
+    let insertPartic = `INSERT INTO participants (group_id, participant_id) VALUES (${groupId}, ${creatorId})`;
+    let sql = `INSERT INTO user_groups (id, name) VALUES (${groupId}, '${groupName}'); ${insertPartic}`;
     database.query(sql, function (error, result) {
-      if (error) throw error
+      if (error) throw error;
 
-      res.send('group created')
-    })
+      res.send("group created");
+    });
   } else {
-    res.send('invalid parameters')
+    res.send("invalid parameters");
   }
-})
+});
 
-module.exports = router
+module.exports = router;
