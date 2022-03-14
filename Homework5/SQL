@@ -1,0 +1,134 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema homework_5
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema homework_5
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `homework_5` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `homework_5` ;
+
+-- -----------------------------------------------------
+-- Table `homework_5`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `homework_5`.`user` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(255) NOT NULL,
+  `joined_at` DATE NOT NULL,
+  `user_active` TINYINT NOT NULL,
+  PRIMARY KEY (`user_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `homework_5`.`user_groups`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `homework_5`.`user_groups` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `homework_5`.`participants`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `homework_5`.`participants` (
+  `group_id` INT NOT NULL,
+  `participant_id` INT NOT NULL,
+  PRIMARY KEY (`group_id`, `participant_id`),
+  INDEX `participant_id` (`participant_id` ASC) VISIBLE,
+  CONSTRAINT `participants_ibfk_1`
+    FOREIGN KEY (`participant_id`)
+    REFERENCES `homework_5`.`user` (`user_id`),
+  CONSTRAINT `participants_ibfk_2`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `homework_5`.`user_groups` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `homework_5`.`events`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `homework_5`.`events` (
+  `event_id` INT NOT NULL AUTO_INCREMENT,
+  `createdBy` INT NOT NULL,
+  `group_id` INT NOT NULL,
+  `event_name` VARCHAR(255) NOT NULL,
+  `startAt` TIMESTAMP NOT NULL,
+  `endAt` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`event_id`),
+  INDEX `createdBy` (`createdBy` ASC) VISIBLE,
+  INDEX `group_id` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `events_ibfk_1`
+    FOREIGN KEY (`createdBy`)
+    REFERENCES `homework_5`.`participants` (`participant_id`),
+  CONSTRAINT `events_ibfk_2`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `homework_5`.`user_groups` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `homework_5`.`interests`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `homework_5`.`interests` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `interests` VARCHAR(255) NOT NULL,
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `interests_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `homework_5`.`user` (`user_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `homework_5`.`messages`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `homework_5`.`messages` (
+  `msg_id` INT NOT NULL AUTO_INCREMENT,
+  `group_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `contents` VARCHAR(255) NOT NULL,
+  `postedAt` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`msg_id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  INDEX `group_id` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `messages_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `homework_5`.`participants` (`participant_id`),
+  CONSTRAINT `messages_ibfk_2`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `homework_5`.`user_groups` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
